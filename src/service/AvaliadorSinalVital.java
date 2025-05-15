@@ -4,6 +4,7 @@ import model.*;
 import util.ClassificacaoComData;
 
 import java.time.LocalDate;
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -18,13 +19,21 @@ public class AvaliadorSinalVital {
      * @param medidas Lista de medidas de um paciente
      * @param alvo    Data-alvo para procurar o primeiro registo
      * @param tipo    Tipo de medida: "Frequência Cardíaca", "Temperatura", "Saturação de Oxigénio"
+     *                ou os códigos curtos "FC", "TEMP", "SAT"
      * @return Objeto com classificação e data, ou mensagem de ausência
      */
     public static ClassificacaoComData classificarValorEmData(List<Medida> medidas, LocalDate alvo, String tipo) {
+        // Permitir compatibilidade com códigos antigos
+        if (tipo.equals("FC")) tipo = "Frequência Cardíaca";
+        else if (tipo.equals("TEMP")) tipo = "Temperatura";
+        else if (tipo.equals("SAT")) tipo = "Saturação de Oxigénio";
+
+        // Ordenar medidas por data
+        medidas.sort(Comparator.comparing(m -> m.getDataHora()));
+
         for (Medida m : medidas) {
             LocalDate data = m.getDataHora().toLocalDate();
 
-            // Encontrar primeiro registo igual ou após a data-alvo
             if (!data.isBefore(alvo)) {
                 if (tipo.equals("Frequência Cardíaca") && m instanceof FrequenciaCardiaca) {
                     return new ClassificacaoComData(classificarFrequenciaCardiaca(m.getValor()), data);
@@ -57,4 +66,3 @@ public class AvaliadorSinalVital {
         return "Normal";
     }
 }
-

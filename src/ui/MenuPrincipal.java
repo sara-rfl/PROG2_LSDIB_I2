@@ -20,6 +20,7 @@ public class MenuPrincipal {
     public void menuInicio() {
         boolean continuarMenu = true;
         while (continuarMenu) {
+            System.out.println("\n-- INTERFACE HOSPITAL XYZ -- ");
             System.out.println("\n || BEM-VINDO, UTILIZADOR. MONITORIZAÇÃO DE UCI || ");
             System.out.println("Escolha uma opção:");
             System.out.println("1 - Registar paciente");

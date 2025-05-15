@@ -1,11 +1,15 @@
 package service;
 
 import model.*;
+import util.ClassificacaoComData;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
 public class ClassificadorPaciente {
+
+
 
     public static String classificarPacienteNoPeriodo(Hospital hospital, Paciente paciente, LocalDateTime inicio, LocalDateTime fim) {
         List<Medida> medidas = hospital.getMedidasPorPaciente(paciente);
@@ -41,4 +45,10 @@ public class ClassificadorPaciente {
         }
         return "Normal";
     }
+
+    public static ClassificacaoComData classificarPacienteNaData(Hospital hospital, Paciente paciente, LocalDate data, String tipo) {
+        List<Medida> medidas = hospital.getMedidasPorPaciente(paciente);
+        return AvaliadorSinalVital.classificarValorEmData(medidas, data, tipo);
+    }
+
 }

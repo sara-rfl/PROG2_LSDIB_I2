@@ -6,7 +6,7 @@ import interfaces.PessoaInterface;
 import java.time.LocalDate;
 
 public abstract class Pessoa implements PessoaInterface, OrdenavelPorData {
-    private static int contador = 1;
+    private static int contador = 1000;
 
     private final int id;
     private String nome;
