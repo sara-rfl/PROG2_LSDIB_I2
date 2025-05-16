@@ -11,13 +11,13 @@ import static model.Temperatura.*;
 public class AvaliadorSinaisVitais {
 
     public static String classificarValor(String tipo, double valor) {
+        String tipoNormalizado = tipo.toLowerCase().replace("é", "e");
 
-
-        if (tipo.equals("Frequencia Cardiaca")) {
+        if (tipoNormalizado.contains("frequencia")) {
             return classificarFrequenciaCardiaca(valor);
-        } else if (tipo.equals("Temperatura")) {
+        } else if (tipoNormalizado.contains("temperatura")) {
             return classificarTemperatura(valor);
-        } else if (tipo.equals("Saturação de Oxigénio")) {
+        } else if (tipoNormalizado.contains("saturacao")) {
             return classificarSaturacao(valor);
         } else {
             return "Tipo desconhecido";
@@ -28,9 +28,9 @@ public class AvaliadorSinaisVitais {
 
 
     private static String classificarFrequenciaCardiaca(double valor) {
-        if (valor <= FC_NORMAL_MAX || valor > FC_NORMAL_MIN) {
-            return "Normal - Frequência Cardíaca";
-        } else if (valor < FC_ATENCAO_MAX || valor >= FC_NORMAL_MAX) {
+        if (valor < FC_NORMAL_MIN || valor > FC_ATENCAO_MAX) {
+            return "Crítico - Frequência Cardíaca";
+        } else if (valor < FC_ATENCAO_MAX || valor > FC_NORMAL_MAX) {
             return "Atenção - Frequência Cardíaca";
         } else {
             return "Normal - Frequência Cardíaca";

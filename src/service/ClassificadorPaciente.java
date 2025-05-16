@@ -25,7 +25,7 @@ public class ClassificadorPaciente {
 
             double valor = m.getValor();
             LocalDateTime dataHora = m.getDataHora();
-            String classificacao = AvaliadorSinaisVitais.classificarValor(tipo, valor);
+            String classificacao = AvaliadorSinaisVitais.classificarValor(tipo , valor);
             resultado.add(new ClassificacaoComData(classificacao, dataHora.toLocalDate()));
         }
 

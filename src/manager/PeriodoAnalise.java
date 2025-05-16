@@ -96,18 +96,17 @@ public class PeriodoAnalise {
         List<Medida> medidas = hospital.getMedidasPorPaciente(paciente);
 
         if (medidas.isEmpty()) return "Sem registos";
+
         LocalDateTime min = null;
         LocalDateTime max = null;
 
         for (Medida m : medidas) {
-            LocalDateTime data = m.getDataHora();
-            if (min == null || data.isBefore(min)) {
-                min = data;
-            }
-            if (max == null || data.isAfter(max)) {
-                max = data;
-            }
+            LocalDateTime dataHora = m.getDataHora();
+            if (min == null || dataHora.isBefore(min)) min = dataHora;
+            if (max == null || dataHora.isAfter(max)) max = dataHora;
         }
+
+        // Formata apenas a parte da data para mostrar ao utilizador
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         return min.toLocalDate().format(formatter) + " a " + max.toLocalDate().format(formatter);
     }
