@@ -5,13 +5,14 @@ import model.Hospital;
 import model.Paciente;
 import manager.GestorPacientes;
 import service.ClassificadorPaciente;
+import service.ClassificadorSinaisVitais;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-import static manager.FiltroSinaisVitais.obterValoresFiltrados;
+import static manager.FiltroSinaisVitais.filtrarPorTipoEPeriodo;
 
 public class Submenus {
 
@@ -66,19 +67,19 @@ public class Submenus {
 
         if (opcao == 1) {
             for (Paciente p : pacientes) {
-                valores.addAll(obterValoresFiltrados(hospital, p, "Frequência Cardíaca", inicio, fim));
+                ClassificadorSinaisVitais.obterValoresFiltrados(hospital, p, "Frequência Cardíaca", inicio, fim);
             }
             GestorPacientes.imprimirMedidasSelecionadas("Frequência Cardíaca", valores);
 
         } else if (opcao == 2) {
             for (Paciente p : pacientes) {
-                valores.addAll(obterValoresFiltrados(hospital, p, "Saturação de Oxigénio", inicio, fim));
+                ClassificadorSinaisVitais.obterValoresFiltrados(hospital, p, "Saturação de Oxigénio", inicio, fim);
             }
             GestorPacientes.imprimirMedidasSelecionadas("Saturação de Oxigénio", valores);
 
         } else if (opcao == 3) {
             for (Paciente p : pacientes) {
-                valores.addAll(obterValoresFiltrados(hospital, p, "Temperatura", inicio, fim));
+                ClassificadorSinaisVitais.obterValoresFiltrados(hospital, p, "Temperatura", inicio, fim);
             }
             GestorPacientes.imprimirMedidasSelecionadas("Temperatura", valores);
 
@@ -103,16 +104,11 @@ public class Submenus {
                 if (paciente != null) {
                     LocalDate[] periodo = PeriodoAnalise.selecionarPeriodoDeAnalisePaciente(scanner, hospital, paciente);
 
-                    String classificacao = ClassificadorPaciente.classificarPacienteNoPeriodo(
-                            hospital,
-                            paciente,
-                            periodo[0].atStartOfDay(),
-                            periodo[1].atTime(23, 59)
-                    );
-
-                    System.out.println("\nClassificação do paciente " + paciente.getNome() + ": " + classificacao);
+                    System.out.println("\nPaciente selecionado com sucesso!");
+                    service.ComparadorSinaisVitais.comparar(hospital, paciente, periodo[0], periodo[1]);
                 }
-            } else if (escolha == 2) {
+
+        } else if (escolha == 2) {
                 continuar = false;
 
             } else {
