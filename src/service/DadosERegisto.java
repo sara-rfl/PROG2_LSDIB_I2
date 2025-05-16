@@ -101,30 +101,55 @@ public class DadosERegisto {
 
 
     /**
-     * Solicita os dados pessoais do paciente ao utilizador e cria um novo objeto {@code entidades.Paciente}.
+     * Solicita os dados pessoais do paciente ao utilizador e cria um novo objeto {@code Paciente}.
      *
-     * @param scanner Objeto {@code Scanner} para entrada de dados.
-     * @return Um novo objeto {@code entidades.Paciente} com os dados fornecidos.
+     * Esta função recolhe o nome, data de nascimento, altura e peso do paciente.
+     * A data de nascimento deve ser introduzida no formato {@code dd/mm/aaaa} e será considerada válida
+     * apenas se não for posterior à data actual. O processo de introdução da data repete-se até
+     * ser fornecida uma data válida.
+     *
+     * @param scanner Objeto {@code Scanner} utilizado para recolher a entrada do utilizador.
+     * @return Um novo objeto {@code Paciente} contendo os dados pessoais fornecidos.
      */
+
     public static Paciente registarPaciente(Scanner scanner) {
         scanner.nextLine();
         System.out.println("Introduza os dados do paciente: ");
         System.out.print("Nome: ");
         String nome = scanner.nextLine();
-        System.out.print("Data de Nascimento (dd/mm/aaaa): ");
-        String dataStr = scanner.nextLine();
-        String[] partes = dataStr.split("/");
-        LocalDate dataNascimento = LocalDate.of(
-                Integer.parseInt(partes[2]),
-                Integer.parseInt(partes[1]),
-                Integer.parseInt(partes[0])
-        );
+
+        LocalDate dataNascimento = null;
+        boolean dataValida = false;
+
+        while (!dataValida) {
+            System.out.print("Data de Nascimento (dd/mm/aaaa): ");
+            String[] partes = scanner.nextLine().split("/");
+            if (partes.length == 3) {
+                int dia = Integer.parseInt(partes[0]);
+                int mes = Integer.parseInt(partes[1]);
+                int ano = Integer.parseInt(partes[2]);
+
+                if (dia > 0 && dia <= 31 && mes > 0 && mes <= 12 && ano > 1900) {
+                    LocalDate data = LocalDate.of(ano, mes, dia);
+                    if (!data.isAfter(LocalDate.now())) {
+                        dataNascimento = data;
+                        dataValida = true;
+                    }
+                }
+            }
+            if (!dataValida) {
+                System.out.println("Data inválida. A Data de Nascimento não pode ser uma data futura. Tente novamente.");
+            }
+        }
+
         System.out.print("Altura (em metros): ");
         double altura = scanner.nextDouble();
         System.out.print("Peso (kg): ");
         double peso = scanner.nextDouble();
+
         return new Paciente(nome, dataNascimento, altura, peso);
     }
+
 
     public static TecnicoSaude selecionarTecnico(Scanner scanner, List<TecnicoSaude> tecnicos) {
         System.out.println("- Técnicos disponíveis: ");
