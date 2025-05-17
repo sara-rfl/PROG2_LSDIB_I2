@@ -11,7 +11,11 @@ import static model.Temperatura.*;
 public class AvaliadorSinaisVitais {
 
     public static String classificarValor(String tipo, double valor) {
-        String tipoNormalizado = tipo.toLowerCase().replace("é", "e");
+        String tipoNormalizado = tipo
+                .toLowerCase()
+                .replace("é", "e")
+                .replace("ã", "a")
+                .replace("ç", "c");
 
         if (tipoNormalizado.contains("frequencia")) {
             return classificarFrequenciaCardiaca(valor);
@@ -24,13 +28,10 @@ public class AvaliadorSinaisVitais {
         }
     }
 
-
-
-
     private static String classificarFrequenciaCardiaca(double valor) {
         if (valor < FC_NORMAL_MIN || valor > FC_ATENCAO_MAX) {
             return "Crítico - Frequência Cardíaca";
-        } else if (valor < FC_ATENCAO_MAX || valor > FC_NORMAL_MAX) {
+        } else if (valor > FC_NORMAL_MAX) {
             return "Atenção - Frequência Cardíaca";
         } else {
             return "Normal - Frequência Cardíaca";
@@ -40,7 +41,7 @@ public class AvaliadorSinaisVitais {
     private static String classificarTemperatura(double valor) {
         if (valor < TEMP_NORMAL_MIN || valor > TEMP_ATENCAO_MAX) {
             return "Crítico - Temperatura";
-        } else if (valor < TEMP_NORMAL_MIN || valor > TEMP_NORMAL_MAX) {
+        } else if (valor > TEMP_NORMAL_MAX) {
             return "Atenção - Temperatura";
         } else {
             return "Normal - Temperatura";
@@ -50,7 +51,7 @@ public class AvaliadorSinaisVitais {
     private static String classificarSaturacao(double valor) {
         if (valor < SAT_ATENCAO_MIN) {
             return "Crítico - Saturação de Oxigénio";
-        } else if (valor <= SAT_NORMAL_MIN) {
+        } else if (valor < SAT_NORMAL_MIN) {
             return "Atenção - Saturação de Oxigénio";
         } else {
             return "Normal - Saturação de Oxigénio";
