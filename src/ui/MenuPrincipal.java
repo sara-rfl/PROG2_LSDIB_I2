@@ -2,6 +2,7 @@ package ui;
 
 import manager.AlteradorSinaisVitais;
 import model.*;
+import service.ClassificadorPaciente;
 import service.DadosERegisto;
 import manager.Listas;
 
@@ -29,7 +30,8 @@ public class MenuPrincipal {
             System.out.println("4 - Lista de pacientes por data de nascimento");
             System.out.println("5 - Lista de técnicos");
             System.out.println("6 - Simulação da alteração percentual dos sinais vitais");
-            System.out.println("7 - Sair");
+            System.out.println("7 - Percentagem de pacientes em estado crítico");
+            System.out.println("8 - Sair");
             int opcao = scanner.nextInt();
             scanner.nextLine();
 
@@ -49,6 +51,8 @@ public class MenuPrincipal {
                 AlteradorSinaisVitais simulador = new AlteradorSinaisVitais(hospital);
                 simulador.iniciarAlteracao(scanner);
             } else if (opcao == 7) {
+                Listas.mostrarPercentagemCriticos(scanner, hospital);
+            } else if (opcao == 8) {
                 System.out.println("A sair...");
                 continuarMenu = false;
             } else {

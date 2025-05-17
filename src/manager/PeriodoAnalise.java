@@ -36,6 +36,26 @@ public class PeriodoAnalise {
         return new LocalDate[]{dataInicio, dataFim};
     }
 
+    public static String obterIntervaloDeRegistos(Hospital hospital, List<Paciente> pacientes) {
+        LocalDateTime min = null;
+        LocalDateTime max = null;
+
+        for (Paciente p : pacientes) {
+            List<Medida> medidas = hospital.getMedidasPorPaciente(p);
+            for (Medida m : medidas) {
+                LocalDateTime data = m.getDataHora();
+                if (min == null || data.isBefore(min)) min = data;
+                if (max == null || data.isAfter(max)) max = data;
+            }
+        }
+
+        if (min == null || max == null) return "Sem registos";
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        return min.toLocalDate().format(formatter) + " a " + max.toLocalDate().format(formatter);
+    }
+
+
     /**
      * Mostra intervalo de registos e pede um período com dados para o paciente.
      */

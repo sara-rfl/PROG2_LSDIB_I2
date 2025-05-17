@@ -1,10 +1,15 @@
 package manager;
 
+import model.Hospital;
 import model.Paciente;
 import model.TecnicoSaude;
+import service.ClassificadorPaciente;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Scanner;
 
 /**
  * Classe utilitária para ordenar e mostrar listas de pacientes e técnicos de saúde.
@@ -52,4 +57,34 @@ public class Listas {
             System.out.println(t); // usa o toString() da classe TecnicoSaude
         }
     }
+    public static void mostrarPercentagemCriticos(Scanner scanner, Hospital hospital) {
+
+        System.out.println("\n|| Registos disponíveis para os pacientes registados ||");
+        String intervalo = PeriodoAnalise.obterIntervaloDeRegistos(hospital, hospital.getPacientes());
+        System.out.println("Intervalo disponível: " + intervalo + "\n");
+
+        LocalDate[] periodo = PeriodoAnalise.selecionarPeriodoDeAnaliseGrupo(scanner, hospital, hospital.getPacientes());
+
+        LocalDate hoje = LocalDate.now();
+        LocalDateTime fimReal;
+
+        if (periodo[1].isEqual(hoje)) {
+            fimReal = LocalDateTime.now();
+        } else {
+            fimReal = periodo[1].atTime(23, 59);
+        }
+
+        double percentagem = ClassificadorPaciente.calcularPercentagemCriticos(
+                hospital,
+                hospital.getPacientes(),
+                periodo[0].atStartOfDay(),
+                fimReal
+        );
+
+        System.out.printf("Percentagem de pacientes em estado crítico: %.2f%%\n", percentagem);
+    }
+
+
+
+
 }

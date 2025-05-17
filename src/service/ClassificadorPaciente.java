@@ -71,4 +71,33 @@ public class ClassificadorPaciente {
 
         return "Normal";
     }
+
+
+    public static double calcularPercentagemCriticos(Hospital hospital, List<Paciente> pacientes,
+                                                     LocalDateTime inicio, LocalDateTime fim) {
+        if (pacientes.isEmpty()) return 0.0;
+
+        int criticos = 0;
+
+        for (Paciente paciente : pacientes) {
+            List<Medida> medidas = hospital.getMedidasPorPaciente(paciente);
+
+            for (Medida m : medidas) {
+                LocalDateTime data = m.getDataHora();
+                if (!data.isBefore(inicio) && !data.isAfter(fim)) {
+                    String classificacao = AvaliadorSinaisVitais.classificarValor(m.getTipo(), m.getValor());
+
+                    if (classificacao.toLowerCase().startsWith("crítico")) {
+                        criticos++;
+                        break;
+                    }
+                }
+            }
+        }
+
+        return (criticos * 100.0) / pacientes.size();
+    }
+
+
+
 }
