@@ -55,7 +55,7 @@ public class MenuPrincipal {
             } else if (opcao == 7) {
                 Listas.mostrarPercentagemCriticos(scanner, hospital);
             } else if (opcao == 8) {
-                GraficoTexto.mostrarGraficoMediasPaciente(scanner, hospital);
+                Submenus.menuGraficoBarras(scanner, hospital);
             } else if (opcao == 9) {
                 System.out.println("A sair...");
                 continuarMenu = false;

@@ -117,4 +117,41 @@ public class Submenus {
         }
     }
 
+
+    public static void menuGraficoBarras(Scanner scanner, Hospital hospital) {
+        boolean continuar = true;
+        while (continuar) {
+            System.out.println("\n || GRÁFICOS DE BARRAS || ");
+            System.out.println("1 - De Médias");
+            System.out.println("2 - De Valores Reais");
+            System.out.println("3 - Voltar ao Menu Principal");
+            System.out.print("Escolha uma opção: ");
+            int escolha = scanner.nextInt();
+            scanner.nextLine();
+
+            if (escolha == 1) {
+                Paciente paciente = GestorPacientes.selecionarPaciente(scanner, hospital.getPacientes());
+                if (paciente != null) {
+
+                    System.out.println("\nPaciente selecionado com sucesso!");
+                    service.GraficoTexto.mostrarGraficoMediasPaciente(scanner, hospital);
+                }
+
+
+            } else if (escolha == 2) {
+                Paciente paciente = GestorPacientes.selecionarPaciente(scanner, hospital.getPacientes());
+                if (paciente != null) {
+                    System.out.println("\nPaciente selecionado com sucesso!");
+
+                    service.GraficoTexto.mostrarGruposValoresReais(scanner, hospital);
+                }
+
+            } else  if (escolha == 3) {
+                continuar = false;
+            } else {
+                System.out.println("Opção inválida. Tente novamente.");
+            }
+        }
+    }
+
 }
