@@ -82,16 +82,21 @@ public class DadosERegisto {
             if (opcao.equals("s")) {
                 Paciente paciente = registarPaciente(scanner);
                 hospital.addPaciente(paciente); // Adiciona ao hospital
+                TecnicoSaude tecnico = selecionarTecnico(scanner, hospital.getTecnicos());
 
                 System.out.println("Introduza os sinais vitais para este paciente:");
-                TecnicoSaude tecnico = selecionarTecnico(scanner, hospital.getTecnicos());
+
 
                 if (tecnico != null) {
                     inserirSinaisVitais(scanner, hospital, paciente, tecnico);
                     System.out.println("Paciente " + paciente.getId() + " registado com sucesso pelo técnico de saúde " + tecnico.getNome() + "!");
+
+
+
                 } else {
                     System.out.println("Técnico inválido. Registo cancelado.");
                 }
+                GraficoTexto.mostrarGraficoUltimasMedidas(paciente, hospital);
 
             } else {
                 continuar = false;

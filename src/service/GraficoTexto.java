@@ -36,7 +36,7 @@ public class GraficoTexto {
         String[] tipos = {"Frequencia Cardiaca", "Temperatura", "Saturação de Oxigénio"};
         double[] escalas = {
                 10.0, //escala para a Frequência Cardíaca --> FC/10
-                1.0, // escala para a Temperatura --> TEMP/1.0
+                2.0, // escala para a Temperatura --> TEMP/2.0
                 2.0 // ESCALA PARA A SP02 --> SP02/2.0
         };
 
@@ -56,7 +56,46 @@ public class GraficoTexto {
                 double media = estat.calcularMedia();
                 GraficoTexto.mostrarBarra(nomes[i], media, escalas[i]);
             }
+
+
         }
     }
+
+    public static void mostrarGraficoUltimasMedidas(Paciente paciente, Hospital hospital) {
+        System.out.println("\nResumo gráfico dos sinais vitais registados:");
+
+        String[] tipos = {"Frequencia Cardiaca", "Temperatura", "Saturação de Oxigénio"};
+
+        String[] nomes = {
+                "Frequência cardíaca (bpm)",
+                "Temperatura corporal (ºC)",
+                "Saturação de oxigénio (%)"
+        };
+        double[] escalas = {10.0, 2.0, 2.0};
+
+        for (int i = 0; i < tipos.length; i++) {
+            List<Medida> medidas = hospital.getMedidasPorPaciente(paciente);
+
+            Medida ultima = null;
+            for (Medida m : medidas) {
+                if (m.getTipo().equalsIgnoreCase(tipos[i])) {
+                    if (ultima == null || m.getDataHora().isAfter(ultima.getDataHora())) {
+                        ultima = m;
+                    }
+                }
+            }
+
+            if (medidas.isEmpty()) {
+                System.out.printf("%s: Nenhum registo\n", nomes[i]);
+                System.out.printf("%s: -\n", nomes[i]);
+
+            } else {
+
+                double valor = medidas.get(i).getValor();
+                GraficoTexto.mostrarBarra(nomes[i], valor, escalas[i]);
+            }
+        }
+    }
+
 
 }
