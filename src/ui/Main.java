@@ -1,12 +1,13 @@
 package ui;
+
 import model.Hospital;
-import service.DadosERegisto;
+import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
         Hospital hospital = new Hospital("Hospital XYZ");
-        DadosERegisto.exemplo(hospital);
         MenuPrincipal menu = new MenuPrincipal(hospital);
-        menu.menuInicio();
+        MenuPrincipal.MenuInicial menuInicial = menu.new MenuInicial(hospital, new Scanner(System.in));
+        menuInicial.menuPrincipal();
     }
 }

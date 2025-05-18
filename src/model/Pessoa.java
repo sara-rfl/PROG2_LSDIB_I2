@@ -18,6 +18,12 @@ public abstract class Pessoa implements PessoaInterface, OrdenavelPorData {
         this.dataNascimento = dataNascimento;
     }
 
+    public Pessoa(String nome, LocalDate dataNascimento, int id) {
+        this.id = id;
+        this.nome = nome;
+        this.dataNascimento = dataNascimento;
+    }
+
     public int getId() { return id; }
 
     public String getNome() { return nome; }

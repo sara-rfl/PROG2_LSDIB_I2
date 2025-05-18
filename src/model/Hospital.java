@@ -48,4 +48,23 @@ public class Hospital {
     public List<Medida> getMedidas() {
         return medidas;
     }
+
+    public Paciente getPacientePorId(int id) {
+        for (Paciente p : pacientes) {
+            if (p.getId() == id) {
+                return p;
+            }
+        }
+        return null;
+    }
+
+    public TecnicoSaude getTecnicoPorId(int id) {
+        for (TecnicoSaude t : tecnicos) {
+            if (t.getId() == id) {
+                return t;
+            }
+        }
+        return null;
+    }
+
 }

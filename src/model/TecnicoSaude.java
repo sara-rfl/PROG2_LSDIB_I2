@@ -22,6 +22,12 @@ public class TecnicoSaude extends Pessoa {
         this.categoriaProfissional = categoriaProfissional;
     }
 
+    public TecnicoSaude(String nome, LocalDate dataNascimento, String categoriaProfissional, int id) {
+        super(nome, dataNascimento, id);
+        this.categoriaProfissional = categoriaProfissional;
+    }
+
+
     /**
      * Retorna a categoria profissional do técnico de saúde.
      *

@@ -18,6 +18,13 @@ public class Paciente extends Pessoa implements Comparable<Paciente>, Classifica
         this.peso = peso;
     }
 
+    public Paciente(String nome, LocalDate dataNascimento, double altura, double peso, int id) {
+        super(nome, dataNascimento, id);  // chama o novo construtor
+        this.altura = altura;
+        this.peso = peso;
+    }
+
+
     public double getAltura() {
         return altura;
     }
