@@ -11,8 +11,6 @@ public class FiltroSinaisVitais {
     public static List<Medida> filtrarPorTipoEPeriodo(List<Medida> medidas, String tipo,
                                                       LocalDateTime inicio, LocalDateTime fim) {
 
-
-
         List<Medida> filtradas = new ArrayList<>();
 
         for (Medida m : medidas) {

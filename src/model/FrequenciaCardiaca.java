@@ -12,7 +12,7 @@ public class FrequenciaCardiaca extends Medida {
     }
 @Override
 public String getTipo() {
-    return "Frequencia Cardiaca";
+    return "Frequência Cardíaca";
     }
 
 }

@@ -33,10 +33,8 @@ public class GestorPacientes {
         System.out.println("Selecione um grupo de pacientes (IDs separados por espaço):");
         mostrarLista(pacientes);
         System.out.print("Introduza os IDs: ");
-
         String[] ids = scanner.nextLine().split(" ");
         List<Paciente> selecionados = new ArrayList<>();
-
         for (String idStr : ids) {
             try {
                 int id = Integer.parseInt(idStr);
@@ -49,7 +47,6 @@ public class GestorPacientes {
                 System.out.println("ID inválido: " + idStr);
             }
         }
-
         if (selecionados.isEmpty()) {
             System.out.println("Nenhum paciente encontrado.");
         }
@@ -85,7 +82,7 @@ public class GestorPacientes {
     public static void processarMedidasPaciente(Scanner scanner, Hospital hospital) {
         Paciente paciente = selecionarPaciente(scanner, hospital.getPacientes());
         if (paciente != null) {
-            LocalDate[] periodo = PeriodoAnalise.obterPeriodoDeAnalise(scanner);
+            LocalDate[] periodo = PeriodoAnalise.selecionarPeriodoDeAnalisePaciente(scanner, hospital, paciente);
             Submenus.sinaisVitais(scanner, hospital, List.of(paciente), periodo[0], periodo[1]);
         }
     }
@@ -93,13 +90,13 @@ public class GestorPacientes {
     public static void processarMedidasGrupo(Scanner scanner, Hospital hospital) {
         List<Paciente> grupo = selecionarGrupoPacientes(scanner, hospital.getPacientes());
         if (!grupo.isEmpty()) {
-            LocalDate[] periodo = PeriodoAnalise.obterPeriodoDeAnalise(scanner);
+            LocalDate[] periodo = PeriodoAnalise.selecionarPeriodoDeAnaliseGrupo(scanner, hospital, grupo);
             Submenus.sinaisVitais(scanner, hospital, grupo, periodo[0], periodo[1]);
         }
     }
 
     public static void processarMedidasTodos(Scanner scanner, Hospital hospital) {
-        LocalDate[] periodo = PeriodoAnalise.obterPeriodoDeAnalise(scanner);
-        Submenus.sinaisVitais(scanner, hospital, hospital.getPacientes(), periodo[0], periodo[1]);
+        LocalDate[] periodo = PeriodoAnalise.selecionarPeriodoDeAnaliseGrupo(scanner, hospital, hospital.getPacientes());
+         Submenus.sinaisVitais(scanner, hospital, hospital.getPacientes(), periodo[0], periodo[1]);
     }
 }

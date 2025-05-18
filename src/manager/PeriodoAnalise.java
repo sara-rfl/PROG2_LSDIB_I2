@@ -83,7 +83,6 @@ public class PeriodoAnalise {
             String intervalo = obterIntervaloDeRegistos(hospital, p);
             System.out.println("ID " + p.getId() + ": " + intervalo);
         }
-
         while (true) {
             LocalDate[] periodo = obterPeriodoDeAnalise(scanner);
             for (Paciente p : pacientes) {

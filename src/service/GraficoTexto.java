@@ -37,7 +37,7 @@ public class GraficoTexto {
         LocalDateTime fim = datas[1].atTime(datas[1].isEqual(LocalDate.now()) ? LocalTime.now() : LocalTime.of(23, 59));
 
 
-        String[] tipos = {"Frequencia Cardiaca", "Temperatura", "Saturação de Oxigénio"};
+        String[] tipos = {"Frequência Cardíaca", "Temperatura", "Saturação de Oxigénio"};
         double[] escalas = {
                 10.0, //escala para a Frequência Cardíaca --> FC/10
                 2.0, // escala para a Temperatura --> TEMP/2.0
@@ -68,7 +68,7 @@ public class GraficoTexto {
     public static void mostrarGraficoUltimasMedidas(Paciente paciente, Hospital hospital) {
         System.out.println("\nResumo gráfico dos sinais vitais registados:");
 
-        String[] tipos = {"Frequencia Cardiaca", "Temperatura", "Saturação de Oxigénio"};
+        String[] tipos = {"Frequência Cardíaca", "Temperatura", "Saturação de Oxigénio"};
 
         String[] nomes = {
                 "Frequência cardíaca (bpm)",

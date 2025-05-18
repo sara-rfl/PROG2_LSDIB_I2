@@ -4,15 +4,14 @@ import manager.PeriodoAnalise;
 import model.Hospital;
 import model.Paciente;
 import manager.GestorPacientes;
-import service.ClassificadorPaciente;
-import service.ClassificadorSinaisVitais;
+import manager.FiltroSinaisVitais;
+import model.Medida;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-import static manager.FiltroSinaisVitais.filtrarPorTipoEPeriodo;
 
 public class Submenus {
 
@@ -63,32 +62,30 @@ public class Submenus {
     }
 
     public static void processarOpcao(int opcao, Hospital hospital, List<Paciente> pacientes, LocalDate inicio, LocalDate fim) {
-        List<Double> valores = new ArrayList<>();
+        String[] tipos = {"Frequência Cardíaca", "Saturação de Oxigénio", "Temperatura"};
 
-        if (opcao == 1) {
-            for (Paciente p : pacientes) {
-                ClassificadorSinaisVitais.obterValoresFiltrados(hospital, p, "Frequência Cardíaca", inicio, fim);
-            }
-            GestorPacientes.imprimirMedidasSelecionadas("Frequência Cardíaca", valores);
+        if (opcao >= 1 && opcao <= 3) {
+            String tipo = tipos[opcao - 1];
+            List<Double> valores = new ArrayList<>();
 
-        } else if (opcao == 2) {
             for (Paciente p : pacientes) {
-                ClassificadorSinaisVitais.obterValoresFiltrados(hospital, p, "Saturação de Oxigénio", inicio, fim);
+                List<Medida> medidas = hospital.getMedidasPorPaciente(p);
+                List<Medida> filtradas = FiltroSinaisVitais.filtrarPorTipoEPeriodo(
+                        medidas, tipo, inicio.atStartOfDay(), fim.atTime(23, 59, 59));
+                for (Medida m : filtradas) {
+                    valores.add(m.getValor());
+                }
             }
-            GestorPacientes.imprimirMedidasSelecionadas("Saturação de Oxigénio", valores);
-
-        } else if (opcao == 3) {
-            for (Paciente p : pacientes) {
-                ClassificadorSinaisVitais.obterValoresFiltrados(hospital, p, "Temperatura", inicio, fim);
-            }
-            GestorPacientes.imprimirMedidasSelecionadas("Temperatura", valores);
+            GestorPacientes.imprimirMedidasSelecionadas(tipo, valores);
 
         } else if (opcao == 4) {
-            processarOpcao(1, hospital, pacientes, inicio, fim);
-            processarOpcao(2, hospital, pacientes, inicio, fim);
-            processarOpcao(3, hospital, pacientes, inicio, fim);
+            for (int i = 1; i <= 3; i++) {
+                processarOpcao(i, hospital, pacientes, inicio, fim);
+            }
         }
     }
+
+
 
     public static void menuClassificacaoPacientes(Scanner scanner, Hospital hospital) {
         boolean continuar = true;
