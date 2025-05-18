@@ -4,6 +4,9 @@ import java.util.List;
 
 public class ScoreGravidade {
 
+    public static final double GRAVIDADE_LIMITE_BAIXA = 2.0;
+    public static final double GRAVIDADE_LIMITE_MODERADA = 3.5;
+
     public static double scorePaciente(Paciente p, Hospital h) {
         double fcScore = 0, tempScore = 0, satScore = 0;
 
@@ -51,8 +54,8 @@ public class ScoreGravidade {
     }
 
     public static String interpretarScore(double score) {
-        if (score <= 2) return "Gravidade Baixa";
-        if (score <= 3.5) return "Gravidade Moderada";
+        if (score <= GRAVIDADE_LIMITE_BAIXA) return "Gravidade Baixa";
+        if (score <= GRAVIDADE_LIMITE_MODERADA) return "Gravidade Moderada";
         else return "Gravidade Alta";
     }
 }
