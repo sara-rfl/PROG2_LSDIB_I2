@@ -67,4 +67,18 @@ public class Hospital {
         return null;
     }
 
+    public Medida getUltimaMedidaDoTipo(Paciente paciente, String tipo) {
+        Medida ultima = null;
+
+        for (Medida m : this.getMedidas()) {
+            if (m.getPaciente().equals(paciente) && m.getClass().getSimpleName().equals(tipo)) {
+                if (ultima == null || m.getDataHora().isAfter(ultima.getDataHora())) {
+                    ultima = m;
+                }
+            }
+        }
+
+        return ultima;
+    }
+
 }
