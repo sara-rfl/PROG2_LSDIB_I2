@@ -9,6 +9,12 @@ import java.util.Scanner;
 
 public class DadosERegisto {
 
+    /**
+     * Preenche o hospital com dados de exemplo, incluindo três pacientes, dois técnicos de saúde,
+     * e um conjunto de medições para cada paciente.
+     *
+     * @param hospital instância do hospital onde os dados serão inseridos
+     */
     public static void exemplo(Hospital hospital) {
         Paciente p1 = criarPaciente("João Rodrigues", 2009, 6, 25, 1.78, 69.0);
         Paciente p2 = criarPaciente("Pablo Caetano", 2001, 6, 5, 1.89, 90.0);
@@ -29,14 +35,44 @@ public class DadosERegisto {
         registarMedidasPaciente3(hospital, p3, t1, t2);
     }
 
+    /**
+     * Cria um novo paciente com os dados fornecidos.
+     *
+     * @param nome   nome do paciente
+     * @param ano    ano de nascimento
+     * @param mes    mês de nascimento
+     * @param dia    dia de nascimento
+     * @param altura altura em metros
+     * @param peso   peso em quilogramas
+     * @return novo objeto Paciente criado com os dados fornecidos
+     */
     private static Paciente criarPaciente(String nome, int ano, int mes, int dia, double altura, double peso) {
         return new Paciente(nome, LocalDate.of(ano, mes, dia), altura, peso);
     }
 
+    /**
+     * Cria um novo técnico de saúde com os dados fornecidos.
+     *
+     * @param nome      nome do técnico
+     * @param ano       ano de nascimento
+     * @param mes       mês de nascimento
+     * @param dia       dia de nascimento
+     * @param categoria categoria profissional
+     * @return novo objeto TecnicoSaude criado com os dados fornecidos
+     */
     private static TecnicoSaude criarTecnico(String nome, int ano, int mes, int dia, String categoria) {
         return new TecnicoSaude(nome, LocalDate.of(ano, mes, dia), categoria);
     }
 
+    /**
+     * Regista um conjunto de medições (frequência cardíaca, temperatura e saturação de oxigénio)
+     * para o primeiro paciente de exemplo.
+     *
+     * @param h  instância do hospital onde as medições serão adicionadas
+     * @param p  paciente a quem pertencem as medições
+     * @param t1 técnico de saúde responsável por algumas medições
+     * @param t2 técnico de saúde responsável por outras medições
+     */
     private static void registarMedidasPaciente1(Hospital h, Paciente p, TecnicoSaude t1, TecnicoSaude t2) {
         h.addMedida(new FrequenciaCardiaca(72, LocalDateTime.of(2024, 3, 10, 14, 30), p, t1));
         h.addMedida(new Temperatura(37.5, LocalDateTime.of(2024, 3, 10, 14, 45), p, t1));
@@ -51,6 +87,13 @@ public class DadosERegisto {
         h.addMedida(new SaturacaoOxigenio(96, LocalDateTime.of(2024, 5, 14, 8, 45), p, t1));
     }
 
+    /**
+     * Regista um conjunto de medições para o segundo paciente de exemplo.
+     *
+     * @param h instância do hospital onde as medições serão adicionadas
+     * @param p paciente a quem pertencem as medições
+     * @param t técnico de saúde responsável pelas medições
+     */
     private static void registarMedidasPaciente2(Hospital h, Paciente p, TecnicoSaude t) {
         h.addMedida(new FrequenciaCardiaca(79, LocalDateTime.of(2024, 3, 8, 12, 10), p, t));
         h.addMedida(new Temperatura(37.9, LocalDateTime.of(2024, 3, 8, 12, 30), p, t));
@@ -61,6 +104,14 @@ public class DadosERegisto {
         h.addMedida(new SaturacaoOxigenio(92, LocalDateTime.of(2024, 5, 14, 12, 30), p, t));
     }
 
+    /**
+     * Regista um conjunto de medições para o terceiro paciente de exemplo.
+     *
+     * @param h  instância do hospital onde as medições serão adicionadas
+     * @param p  paciente a quem pertencem as medições
+     * @param t1 técnico de saúde responsável por algumas medições
+     * @param t2 técnico de saúde responsável por outras medições
+     */
     private static void registarMedidasPaciente3(Hospital h, Paciente p, TecnicoSaude t1, TecnicoSaude t2) {
         h.addMedida(new FrequenciaCardiaca(115, LocalDateTime.of(2024, 3, 15, 12, 10), p, t1));
         h.addMedida(new Temperatura(38.0, LocalDateTime.of(2024, 3, 15, 12, 30), p, t1));
@@ -71,6 +122,13 @@ public class DadosERegisto {
         h.addMedida(new SaturacaoOxigenio(89, LocalDateTime.of(2024, 5, 14, 9, 0), p, t2));
     }
 
+    /**
+     * Permite o registo de novos pacientes no hospital através da interação com o utilizador.
+     * Solicita os dados pessoais e regista sinais vitais associados, se for selecionado um técnico válido.
+     *
+     * @param hospital instância do hospital onde os pacientes serão registados
+     * @param scanner  objeto Scanner utilizado para recolher a entrada do utilizador
+     */
     public static void registoNovoPaciente(Hospital hospital, Scanner scanner) {
         System.out.println("\n || REGISTO DE NOVOS PACIENTES ||");
         boolean continuar = true;
@@ -116,7 +174,6 @@ public class DadosERegisto {
      * @param scanner Objeto {@code Scanner} utilizado para recolher a entrada do utilizador.
      * @return Um novo objeto {@code Paciente} contendo os dados pessoais fornecidos.
      */
-
     public static Paciente registarPaciente(Scanner scanner) {
         scanner.nextLine();
         System.out.println("Introduza os dados do paciente: ");
@@ -156,6 +213,13 @@ public class DadosERegisto {
     }
 
 
+    /**
+     * Apresenta a lista de técnicos disponíveis e permite ao utilizador selecionar um com base no ID.
+     *
+     * @param scanner  objeto Scanner utilizado para a entrada do utilizador
+     * @param tecnicos lista de técnicos de saúde disponíveis
+     * @return o técnico de saúde selecionado, ou null se o ID não for encontrado
+     */
     public static TecnicoSaude selecionarTecnico(Scanner scanner, List<TecnicoSaude> tecnicos) {
         System.out.println("- Técnicos disponíveis: ");
         for (TecnicoSaude t : tecnicos) {
@@ -174,6 +238,16 @@ public class DadosERegisto {
         return null;
     }
 
+    /**
+     * Permite ao utilizador introduzir sinais vitais (frequência cardíaca, temperatura e saturação de oxigénio)
+     * para um determinado paciente, registados pelo técnico de saúde responsável.
+     * A inserção termina ao introduzir o valor 0 em cada tipo de sinal.
+     *
+     * @param scanner  objeto Scanner utilizado para recolher os dados
+     * @param hospital instância do hospital onde as medições serão registadas
+     * @param paciente paciente ao qual pertencem os dados
+     * @param tecnico  técnico de saúde responsável pelo registo das medições
+     */
     public static void inserirSinaisVitais(Scanner scanner, Hospital hospital, Paciente paciente, TecnicoSaude tecnico) {
         System.out.println("Frequência cardíaca (0 para terminar): ");
         double valor;
