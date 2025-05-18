@@ -6,6 +6,7 @@ import model.Paciente;
 import manager.GestorPacientes;
 import manager.FiltroSinaisVitais;
 import model.Medida;
+import model.ScoreGravidade;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -147,6 +148,48 @@ public class Submenus {
                 continuar = false;
             } else {
                 System.out.println("Opção inválida. Tente novamente.");
+            }
+        }
+    }
+
+    public static void menuScoreGravidade(Scanner scanner, Hospital hospital) {
+        boolean continuar = true;
+
+        while (continuar) {
+            System.out.println("\n || SCORE DE GRAVIDADE ||");
+            System.out.println("1 - Paciente mais grave");
+            System.out.println("2 - Calcular Score de Gravidade");
+            System.out.println("3 - Voltar ao menu principal");
+
+            int opcao = scanner.nextInt();
+            scanner.nextLine();
+
+            if (opcao == 1) {
+                Paciente maisGrave = ScoreGravidade.pacienteMaisGrave(hospital.getPacientes(), hospital);
+                if (maisGrave != null) {
+                    System.out.println("Paciente mais grave: " + maisGrave.getNome());
+                    double scoreMaisGrave = ScoreGravidade.scorePaciente(maisGrave, hospital);
+                    System.out.println("Score: " + scoreMaisGrave);
+                    ScoreGravidade.interpretarScore(scoreMaisGrave);
+                } else {
+                    System.out.println("Nenhum paciente encontrado.");
+                }
+            } else if (opcao == 2) {
+                Paciente paciente = GestorPacientes.selecionarPaciente(scanner, hospital.getPacientes());
+                if (paciente != null) {
+                    System.out.println("\nPaciente selecionado: " + paciente.getNome());
+                    double score = ScoreGravidade.scorePaciente(paciente, hospital);
+                    String gravidade = ScoreGravidade.interpretarScore(score);
+                    System.out.println("Score: " + score + " -> " + gravidade);
+                } else {
+                    System.out.println("Paciente não encontrado.");
+                }
+
+            } else if (opcao == 3) {
+                continuar = false;
+
+            } else {
+                System.out.println("Opção inválida.");
             }
         }
     }

@@ -85,7 +85,8 @@ public class MenuPrincipal {
                 System.out.println("4 - Simulação da alteração percentual dos sinais");
                 System.out.println("5 - Percentagem de pacientes críticos");
                 System.out.println("6 - Gráfico de barras");
-                System.out.println("7 - Voltar");
+                System.out.println("7 - Score de Gravidade");
+                System.out.println("8 - Voltar");
 
                 int opcao = scanner.nextInt();
                 scanner.nextLine();
@@ -96,7 +97,8 @@ public class MenuPrincipal {
                 else if (opcao == 4) new AlteradorSinaisVitais(hospital).iniciarAlteracao(scanner);
                 else if (opcao == 5) Listas.mostrarPercentagemCriticos(scanner, hospital);
                 else if (opcao == 6) Submenus.menuGraficoBarras(scanner, hospital);
-                else if (opcao == 7) voltar = true;
+                else if (opcao == 7) Submenus.menuScoreGravidade (scanner, hospital);
+                else if (opcao == 8) voltar = true;
                 else System.out.println("Opção inválida.");
             }
         }
