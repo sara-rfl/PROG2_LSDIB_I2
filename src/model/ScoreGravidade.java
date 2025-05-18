@@ -35,4 +35,24 @@ public class ScoreGravidade {
         if (valor >= SaturacaoOxigenio.SAT_ATENCAO_MIN && valor < SaturacaoOxigenio.SAT_NORMAL_MIN) return 3;
         return 5;
     }
+
+    public static Paciente pacienteMaisGrave(List<Paciente> pacientes, Hospital hospital) {
+        Paciente maisGrave = null;
+        double maiorScore = 0;
+
+        for (Paciente p : pacientes) {
+            double score = scorePaciente(p, hospital);
+            if (score > maiorScore) {
+                maiorScore = score;
+                maisGrave = p;
+            }
+        }
+        return maisGrave;
+    }
+
+    public static String interpretarScore(double score) {
+        if (score <= 2) return "Gravidade Baixa";
+        if (score <= 3.5) return "Gravidade Moderada";
+        else return "Gravidade Alta";
+    }
 }
