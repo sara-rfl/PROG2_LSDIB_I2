@@ -84,7 +84,7 @@ public class LeitorFicheiros {
     }
 
     private static Medida criarMedida(String[] partes, Paciente paciente, TecnicoSaude tecnico) {
-        String tipo = normalizarTipo(partes[9].trim());  // ← normaliza com acentos removidos
+        String tipo = normalizarTipo(partes[9].trim());
         double valor = Double.parseDouble(partes[10]);
         LocalDateTime dataHora = LocalDateTime.parse(partes[11]);
 
@@ -114,6 +114,4 @@ public class LeitorFicheiros {
                 .replace("â", "a")
                 .replace("ô", "o");
     }
-
-
 }

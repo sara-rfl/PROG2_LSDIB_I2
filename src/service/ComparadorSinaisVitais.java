@@ -44,10 +44,7 @@ public class ComparadorSinaisVitais {
 
                 resultado = inicioClass + " (" + formatarData(primeira.getData()) + ")"
                         + " --> " + fimClass + " (" + formatarData(ultima.getData()) + ")";
-            }
-
-
-            System.out.println(resultado + " - " + tipo);
+            } System.out.println(resultado + " - " + tipo);
         }
     }
 

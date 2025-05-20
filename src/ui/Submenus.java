@@ -135,7 +135,6 @@ public class Submenus {
                     service.GraficoTexto.mostrarGraficoMediasPaciente(scanner, hospital);
                 }
 
-
             } else if (escolha == 2) {
                 Paciente paciente = GestorPacientes.selecionarPaciente(scanner, hospital.getPacientes());
                 if (paciente != null) {
@@ -154,16 +153,13 @@ public class Submenus {
 
     public static void menuScoreGravidade(Scanner scanner, Hospital hospital) {
         boolean continuar = true;
-
         while (continuar) {
             System.out.println("\n || SCORE DE GRAVIDADE ||");
             System.out.println("1 - Paciente mais grave");
             System.out.println("2 - Calcular Score de Gravidade");
             System.out.println("3 - Voltar ao menu principal");
-
             int opcao = scanner.nextInt();
             scanner.nextLine();
-
             if (opcao == 1) {
                 Paciente maisGrave = ScoreGravidade.pacienteMaisGrave(hospital.getPacientes(), hospital);
                 if (maisGrave != null) {
@@ -184,14 +180,11 @@ public class Submenus {
                 } else {
                     System.out.println("Paciente não encontrado.");
                 }
-
             } else if (opcao == 3) {
                 continuar = false;
-
             } else {
                 System.out.println("Opção inválida.");
             }
         }
     }
-
 }
