@@ -4,6 +4,7 @@ import manager.PeriodoAnalise;
 import model.Hospital;
 import model.Paciente;
 import manager.GestorPacientes;
+import manager.ProcessadorMedidas;
 import manager.FiltroSinaisVitais;
 import model.Medida;
 import model.ScoreGravidade;
@@ -29,11 +30,11 @@ public class Submenus {
             scanner.nextLine();
 
             if (opcao == 1) {
-                GestorPacientes.processarMedidasPaciente(scanner, hospital);
+                ProcessadorMedidas.processarMedidasPaciente(scanner, hospital);
             } else if (opcao == 2) {
-                GestorPacientes.processarMedidasGrupo(scanner, hospital);
+                ProcessadorMedidas.processarMedidasGrupo(scanner, hospital);
             } else if (opcao == 3) {
-                GestorPacientes.processarMedidasTodos(scanner, hospital);
+                ProcessadorMedidas.processarMedidasTodos(scanner, hospital);
             } else if (opcao == 4) {
                 continuar = false;
             } else {

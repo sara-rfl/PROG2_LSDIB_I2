@@ -1,45 +1,51 @@
 package io;
 
+import exceptions.*;
 import model.*;
+
 import java.io.*;
-import java.time.LocalDateTime;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 /**
- * Classe responsável por importar medidas de um ficheiro de texto.
+ * Classe responsável por importar medidas a partir de um ficheiro de texto.
+ * Caso pacientes ou técnicos não existam no hospital, são automaticamente criados.
+ * As medidas válidas são adicionadas à instância do hospital.
  */
 public class LeitorFicheiros {
 
     /**
-     * Importa medidas a partir de um ficheiro.
-     * Se o paciente ou técnico não existirem, são criados com dados fictícios.
+     * Lê todas as linhas do ficheiro e tenta importar as medidas.
+     * Cada linha mal formatada ou com erro será ignorada e reportada.
      *
-     * @param nomeFicheiro caminho do ficheiro de texto
-     * @param hospital instância do hospital onde as medidas serão adicionadas
+     * @param nomeFicheiro nome do ficheiro com as medidas a importar
+     * @param hospital instância do hospital onde as medidas serão armazenadas
      */
     public static void importarMedidas(String nomeFicheiro, Hospital hospital) {
         try (BufferedReader reader = new BufferedReader(new FileReader(nomeFicheiro))) {
             String linha;
             while ((linha = reader.readLine()) != null) {
-                try {
+                if (!linha.trim().isEmpty()) {
                     processarLinhaMedida(linha, hospital);
-                } catch (IllegalArgumentException | NullPointerException e) {
-                    System.out.println("Erro na linha: " + linha);
-                    System.out.println("Motivo: " + e.getMessage());
                 }
             }
-            System.out.println("Importação concluída com sucesso.");
         } catch (IOException e) {
             System.out.println("Erro ao abrir o ficheiro: " + e.getMessage());
         }
     }
 
+    /**
+     * Processa uma linha do ficheiro, criando os objetos correspondentes.
+     *
+     * @param linha linha de texto do ficheiro
+     * @param hospital instância onde os dados serão armazenados
+     * @throws LinhaMalFormatadaException se a linha não tiver 12 campos
+     * @throws ErroProcessarLinhaException se algum campo for inválido
+     */
     private static void processarLinhaMedida(String linha, Hospital hospital) {
-        if (linha.trim().isEmpty()) return;
-
         String[] partes = linha.split(";");
         if (partes.length != 12) {
-            throw new IllegalArgumentException("Linha mal formatada (esperados 12 campos): " + linha);
+            throw new LinhaMalFormatadaException(linha);
         }
 
         try {
@@ -47,13 +53,14 @@ public class LeitorFicheiros {
             TecnicoSaude tecnico = obterOuCriarTecnico(partes, hospital);
             Medida medida = criarMedida(partes, paciente, tecnico);
             hospital.addMedida(medida);
-
         } catch (Exception e) {
-            throw new IllegalArgumentException("Erro a processar linha: " + linha + "\nMotivo: " + e.getMessage());
+            throw new ErroProcessarLinhaException(linha, e.getMessage());
         }
     }
 
-
+    /**
+     * Obtém um paciente pelo ID ou cria um novo com os dados fornecidos.
+     */
     private static Paciente obterOuCriarPaciente(String[] partes, Hospital hospital) {
         int id = Integer.parseInt(partes[0]);
         String nome = partes[1];
@@ -69,6 +76,9 @@ public class LeitorFicheiros {
         return p;
     }
 
+    /**
+     * Obtém um técnico pelo ID ou cria um novo com os dados fornecidos.
+     */
     private static TecnicoSaude obterOuCriarTecnico(String[] partes, Hospital hospital) {
         int id = Integer.parseInt(partes[5]);
         String nome = partes[6];
@@ -83,6 +93,11 @@ public class LeitorFicheiros {
         return t;
     }
 
+    /**
+     * Cria a medida correspondente (frequência, temperatura ou saturação).
+     *
+     * @throws TipoMedidaDesconhecidoException se o tipo for inválido
+     */
     private static Medida criarMedida(String[] partes, Paciente paciente, TecnicoSaude tecnico) {
         String tipo = normalizarTipo(partes[9].trim());
         double valor = Double.parseDouble(partes[10]);
@@ -95,10 +110,16 @@ public class LeitorFicheiros {
         } else if (tipo.contains("saturacao")) {
             return new SaturacaoOxigenio(valor, dataHora, paciente, tecnico);
         } else {
-            throw new IllegalArgumentException("Tipo de medida desconhecido: " + tipo);
+            throw new TipoMedidaDesconhecidoException(tipo);
         }
     }
 
+    /**
+     * Remove acentos e normaliza o tipo de medida para facilitar a correspondência.
+     *
+     * @param tipo nome do tipo vindo do ficheiro (ex: "Frequência")
+     * @return tipo sem acentos, em minúsculas
+     */
     private static String normalizarTipo(String tipo) {
         return tipo.toLowerCase()
                 .replace("ã", "a")
