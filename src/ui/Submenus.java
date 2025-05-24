@@ -8,6 +8,7 @@ import manager.ProcessadorMedidas;
 import manager.FiltroSinaisVitais;
 import model.Medida;
 import model.ScoreGravidade;
+import service.Serializador;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -233,4 +234,42 @@ public class Submenus {
             }
         }
     }
+
+    public static void menuSerializador(Scanner scanner, Hospital hospital) {
+        boolean continuar = true;
+        while (continuar) {
+            System.out.println("\n || GESTÃO DE DADOS || ");
+            System.out.println("1 - Guardar dados");
+            System.out.println("2 - Carregar dados");
+            System.out.println("3 - Voltar ao menu principal");
+            int opcao = scanner.nextInt();
+            scanner.nextLine();
+
+            if (opcao == 1) {
+                Serializador.guardarHospital(hospital, "hospital.dat");
+            } else if (opcao == 2) {
+                Hospital carregado = Serializador.carregarHospital("hospital.dat");
+                if (carregado != null) {
+                    hospital.getPacientes().clear();
+                    hospital.getPacientes().addAll(carregado.getPacientes());
+
+                    hospital.getTecnicos().clear();
+                    hospital.getTecnicos().addAll(carregado.getTecnicos());
+
+                    hospital.getMedidas().clear();
+                    hospital.getMedidas().addAll(carregado.getMedidas());
+
+                    System.out.println("Dados carregados com sucesso.");
+                } else {
+                    System.out.println("Erro ao carregar dados.");
+                }
+            } else if (opcao == 3) {
+                continuar = false;
+            } else {
+                System.out.println("Opção inválida.");
+            }
+
+        }
+    }
+
 }

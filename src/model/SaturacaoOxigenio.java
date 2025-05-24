@@ -1,5 +1,6 @@
 package model;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
@@ -13,7 +14,9 @@ import java.time.LocalDateTime;
  * Valores abaixo de 90% são geralmente considerados críticos.
  *
  */
-public class SaturacaoOxigenio extends Medida {
+public class SaturacaoOxigenio extends Medida implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     /** Valor mínimo (%) para considerar a saturação como normal. */
     public static final double SAT_NORMAL_MIN = 95.0;

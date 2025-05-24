@@ -1,5 +1,6 @@
 package model;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.ArrayList;
 
@@ -8,7 +9,9 @@ import java.util.ArrayList;
  * e medidas registadas. É responsável por armazenar e fornecer acesso aos
  * dados clínicos registados no sistema.
  */
-public class Hospital {
+public class Hospital implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     private String nome;
     private List<Paciente> pacientes;

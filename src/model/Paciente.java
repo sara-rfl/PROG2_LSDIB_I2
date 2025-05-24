@@ -1,6 +1,8 @@
 package model;
 
 import interfaces.Classificavel;
+
+import java.io.Serializable;
 import java.time.LocalDate;
 
 /**
@@ -10,7 +12,9 @@ import java.time.LocalDate;
  * Esta classe implementa {@code Comparable<Paciente>} para permitir ordenação por data de nascimento,
  * e {@code Classificavel} para permitir a obtenção de uma classificação (embora aqui esteja apenas como placeholder).
  */
-public class Paciente extends Pessoa implements Comparable<Paciente>, Classificavel {
+public class Paciente extends Pessoa implements Comparable<Paciente>, Classificavel, Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     /** Altura do paciente, em metros. */
     private double altura;

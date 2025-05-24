@@ -1,5 +1,6 @@
 package model;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
@@ -7,7 +8,9 @@ import java.time.LocalDateTime;
  * Estende a classe abstrata {@link Medida} e inclui limites para classificação
  * dos valores como "Normal", "Atenção" ou "Crítico".
  */
-public class Temperatura extends Medida {
+public class Temperatura extends Medida implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     /**
      * Limite inferior da temperatura considerada normal (em ºC).

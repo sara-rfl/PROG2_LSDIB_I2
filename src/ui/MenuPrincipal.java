@@ -41,14 +41,16 @@ public class MenuPrincipal {
                 System.out.println("\nEscolha uma opção:");
                 System.out.println("1 - Registar novo paciente");
                 System.out.println("2 - Analisar dados");
-                System.out.println("3 - Sair");
+                System.out.println("3 - Gestão de dados");
+                System.out.println("4 - Sair");
 
                 int opcao = scanner.nextInt();
                 scanner.nextLine();
 
                 if (opcao == 1) DadosERegisto.registoNovoPaciente(hospital, scanner);
                 else if (opcao == 2) menuAnalise();
-                else if (opcao == 3) {
+                else if (opcao == 3) Submenus.menuSerializador(scanner, hospital);
+                else if (opcao == 4) {
                     System.out.println("A sair...");
                     continuar = false;
                 } else {

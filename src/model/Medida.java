@@ -1,5 +1,6 @@
 package model;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
@@ -11,7 +12,9 @@ import java.time.LocalDateTime;
  *
  * Esta classe serve como base para as subclasses específicas de sinais vitais.
  */
-public abstract class Medida {
+public abstract class Medida implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     protected double valor;
     protected LocalDateTime dataHora;

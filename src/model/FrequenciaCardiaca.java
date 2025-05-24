@@ -1,5 +1,6 @@
 package model;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
@@ -8,7 +9,9 @@ import java.time.LocalDateTime;
  * Estende a classe abstrata {@link Medida} e define os limites associados
  * à classificação da frequência cardíaca.
  */
-public class FrequenciaCardiaca extends Medida {
+public class FrequenciaCardiaca extends Medida implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     /**
      * Limite inferior para frequência cardíaca considerada normal (em bpm).

@@ -3,6 +3,7 @@ package model;
 import interfaces.OrdenavelPorData;
 import interfaces.PessoaInterface;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
 /**
@@ -14,7 +15,9 @@ import java.time.LocalDate;
  * O identificador {@code id} é atribuído automaticamente com base num contador interno,
  * salvo se for fornecido diretamente pelo construtor.
  */
-abstract class Pessoa implements PessoaInterface, OrdenavelPorData {
+abstract class Pessoa implements PessoaInterface, OrdenavelPorData, Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     /** Contador interno para gerar identificadores únicos. */
     private static int contador = 1000;
