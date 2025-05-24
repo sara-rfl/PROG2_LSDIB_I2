@@ -12,12 +12,22 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * Testes unitários para a classe {@link Estatistica}, que realiza cálculos
+ * de média, mínimo e máximo sobre listas de valores de sinais vitais de pacientes.
+ *
+ * Cada teste simula um conjunto de registos de medidas (temperatura, frequência cardíaca,
+ * saturação de oxigénio) e verifica se os cálculos estatísticos estão corretos.
+ */
 public class EstatisticaTest {
 
     private static Paciente paciente;
     private static TecnicoSaude tecnico;
     private static LocalDateTime agora;
 
+    /**
+     * Configura dados fictícios de paciente e técnico de saúde antes da execução dos testes.
+     */
     @BeforeAll
     public static void setUp() {
         paciente = new Paciente("Paciente Teste", LocalDate.of(2000, 1, 1), 1.75, 70);
@@ -25,6 +35,10 @@ public class EstatisticaTest {
         agora = LocalDateTime.now();
     }
 
+    /**
+     * Testa o cálculo da média, valor mínimo e máximo da temperatura
+     * a partir de três registos.
+     */
     @Test
     public void testMediaTemperaturaPaciente() {
         List<Medida> medidas = Arrays.asList(
@@ -41,6 +55,10 @@ public class EstatisticaTest {
         assertEquals(39.0, stat.calcularMax(), 0.001);
     }
 
+    /**
+     * Testa o cálculo da média, valor mínimo e máximo da frequência cardíaca
+     * com três registos simulados.
+     */
     @Test
     public void testMediaFrequenciaPaciente() {
         List<Medida> medidas = Arrays.asList(
@@ -57,6 +75,10 @@ public class EstatisticaTest {
         assertEquals(120.0, estat.calcularMax(), 0.001);
     }
 
+    /**
+     * Testa o cálculo da média, valor mínimo e máximo da saturação de oxigénio
+     * com três valores típicos registados.
+     */
     @Test
     public void testMediaSaturacaoPaciente() {
         List<Medida> medidas = Arrays.asList(

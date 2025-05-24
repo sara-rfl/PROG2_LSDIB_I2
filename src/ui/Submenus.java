@@ -14,9 +14,19 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-
+/**
+ * Classe utilitária responsável por apresentar submenus de funcionalidades específicas,
+ * como cálculo de medidas de sumário, visualização de sinais vitais, classificação por período,
+ * gráficos de barras e score de gravidade.
+ */
 public class Submenus {
-
+    /**
+     * Apresenta um menu para cálculo de medidas de sumário (média, mínimo, máximo, desvio padrão),
+     * podendo ser aplicado a um paciente, grupo ou todos os pacientes.
+     *
+     * @param scanner  Scanner para leitura do input do utilizador
+     * @param hospital Instância do hospital com os dados
+     */
     public static void medidasSumario(Scanner scanner, Hospital hospital) {
         boolean continuar = true;
         while (continuar) {
@@ -42,7 +52,16 @@ public class Submenus {
             }
         }
     }
-
+    /**
+     * Apresenta um submenu para análise de sinais vitais dentro de um determinado período.
+     * Permite escolher entre frequência cardíaca, saturação, temperatura ou todos.
+     *
+     * @param scanner   Scanner para input do utilizador
+     * @param hospital  Instância do hospital com os dados
+     * @param pacientes Lista de pacientes a analisar
+     * @param inicio    Data de início do período
+     * @param fim       Data de fim do período
+     */
     public static void sinaisVitais(Scanner scanner, Hospital hospital, List<Paciente> pacientes, LocalDate inicio, LocalDate fim) {
         int opcao;
         do {
@@ -62,7 +81,16 @@ public class Submenus {
             }
         } while (opcao != 5);
     }
-
+    /**
+     * Processa e calcula medidas estatísticas para o sinal vital escolhido,
+     * chamando a filtragem e apresentação dos valores.
+     *
+     * @param opcao     Tipo de sinal vital (1 a 3) ou todos (4)
+     * @param hospital  Instância do hospital com os dados
+     * @param pacientes Lista de pacientes
+     * @param inicio    Data de início do período
+     * @param fim       Data de fim do período
+     */
     public static void processarOpcao(int opcao, Hospital hospital, List<Paciente> pacientes, LocalDate inicio, LocalDate fim) {
         String[] tipos = {"Frequência Cardíaca", "Saturação de Oxigénio", "Temperatura"};
 
@@ -87,8 +115,13 @@ public class Submenus {
         }
     }
 
-
-
+    /**
+     * Apresenta o menu de classificação de pacientes com base nos sinais vitais
+     * num determinado período selecionado.
+     *
+     * @param scanner  Scanner para input do utilizador
+     * @param hospital Instância do hospital com os dados
+     */
     public static void menuClassificacaoPacientes(Scanner scanner, Hospital hospital) {
         boolean continuar = true;
         while (continuar) {
@@ -106,7 +139,6 @@ public class Submenus {
                     System.out.println("\nPaciente selecionado com sucesso!");
                     service.ComparadorSinaisVitais.comparar(hospital, paciente, periodo[0], periodo[1]);
                 }
-
         } else if (escolha == 2) {
                 continuar = false;
 
@@ -116,7 +148,14 @@ public class Submenus {
         }
     }
 
-
+    /**
+     * Apresenta um menu com opções para gerar gráficos de barras:
+     * - Médias dos sinais vitais
+     * - Valores reais agrupados por tipo
+     *
+     * @param scanner  Scanner para input do utilizador
+     * @param hospital Instância do hospital com os dados
+     */
     public static void menuGraficoBarras(Scanner scanner, Hospital hospital) {
         boolean continuar = true;
         while (continuar) {
@@ -135,7 +174,6 @@ public class Submenus {
                     System.out.println("\nPaciente selecionado com sucesso!");
                     service.GraficoTexto.mostrarGraficoMediasPaciente(scanner, hospital);
                 }
-
             } else if (escolha == 2) {
                 Paciente paciente = GestorPacientes.selecionarPaciente(scanner, hospital.getPacientes());
                 if (paciente != null) {
@@ -143,7 +181,6 @@ public class Submenus {
 
                     service.GraficoTexto.mostrarGruposValoresReais(scanner, hospital);
                 }
-
             } else  if (escolha == 3) {
                 continuar = false;
             } else {
@@ -152,6 +189,14 @@ public class Submenus {
         }
     }
 
+    /**
+     * Apresenta o menu de análise do Score de Gravidade:
+     * - Determina o paciente mais grave
+     * - Calcula score de gravidade individual e interpreta o risco
+     *
+     * @param scanner  Scanner para input do utilizador
+     * @param hospital Instância do hospital com os dados
+     */
     public static void menuScoreGravidade(Scanner scanner, Hospital hospital) {
         boolean continuar = true;
         while (continuar) {

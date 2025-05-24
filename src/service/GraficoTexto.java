@@ -168,8 +168,4 @@ public class GraficoTexto {
 
         System.out.println("---");
     }
-
-
-
-
 }

@@ -8,25 +8,28 @@ import io.LeitorFicheiros;
 
 import java.util.Scanner;
 
+/**
+ * Classe principal que define o ponto de entrada para a interface textual do sistema.
+ */
 public class MenuPrincipal {
 
     private final Hospital hospital;
     private final Scanner scanner;
 
+    /**
+     * Construtor principal da interface.
+     *
+     * @param hospital Instância do hospital a ser usada
+     */
     public MenuPrincipal(Hospital hospital) {
         this.hospital = hospital;
         this.scanner = new Scanner(System.in);
     }
 
-    public class MenuInicial {
-        private final Hospital hospital;
-        private final Scanner scanner;
-
-        public MenuInicial(Hospital hospital, Scanner scanner) {
-            this.hospital = hospital;
-            this.scanner = scanner;
-        }
-
+        /**
+         * Metodo principal que apresenta o menu inicial ao utilizador.
+         * Permite registar pacientes, carregar dados ou aceder ao menu de análise.
+         */
         public void menuPrincipal() {
             System.out.println("\n-- INTERFACE HOSPITAL XYZ --");
             System.out.println("|| BEM-VINDO, UTILIZADOR. MONITORIZAÇÃO DE UCI ||");
@@ -54,6 +57,10 @@ public class MenuPrincipal {
             }
         }
 
+        /**
+         * Permite ao utilizador escolher entre criar dados automaticamente
+         * ou carregar de ficheiro. Caso contrário, inicia com base vazia.
+         */
         private void inicializarDados() {
             System.out.println("\nDeseja:");
             System.out.println("1 - Criar dados automaticamente");
@@ -74,9 +81,12 @@ public class MenuPrincipal {
             }
         }
 
+        /**
+         * Apresenta o submenu de análise de dados do hospital,
+         * incluindo medidas de sumário, classificação, gráficos e score.
+         */
         private void menuAnalise() {
             boolean voltar = false;
-
             while (!voltar) {
                 System.out.println("\n--- ANÁLISE DE DADOS ---");
                 System.out.println("1 - Cálculo de medidas de sumário");
@@ -103,6 +113,10 @@ public class MenuPrincipal {
             }
         }
 
+        /**
+         * Apresenta as opções de listagens de pacientes e técnicos,
+         * ordenados por data de nascimento ou nome, respetivamente.
+         */
         private void menuListas() {
             boolean voltar = false;
 
@@ -126,4 +140,3 @@ public class MenuPrincipal {
             }
         }
     }
-}
