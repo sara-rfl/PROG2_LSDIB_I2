@@ -5,16 +5,30 @@ import java.util.List;
 import java.util.Scanner;
 import java.time.format.DateTimeFormatter;
 import java.time.LocalDateTime;
-
+/**
+ * Classe responsável por simular alterações percentuais nos sinais vitais dos pacientes
+ * de um hospital e apresentar os resultados com destaque para valores fora dos limites fisiológicos.
+ */
 public class AlteradorSinaisVitais {
 
     private Hospital hospital;
     private static final DateTimeFormatter FORMATADOR = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
 
+    /**
+     * Construtor da classe AlteradorSinaisVitais.
+     *
+     * @param hospital instância do hospital contendo os pacientes e respetivas medições.
+     */
     public AlteradorSinaisVitais(Hospital hospital) {
         this.hospital = hospital;
     }
 
+    /**
+     * Inicia o processo interativo com o utilizador para introduzir percentagens de alteração
+     * e simular os efeitos nos sinais vitais.
+     *
+     * @param scanner objeto Scanner para leitura da entrada do utilizador.
+     */
     public void iniciarAlteracao(Scanner scanner) {
         String resposta;
         do {
@@ -33,6 +47,12 @@ public class AlteradorSinaisVitais {
         } while (resposta.equalsIgnoreCase("s"));
     }
 
+    /**
+     * Imprime, para cada paciente, os valores simulados dos seus sinais vitais
+     * após a aplicação da percentagem fornecida.
+     *
+     * @param percentagem percentagem de alteração (positiva ou negativa) a aplicar aos sinais vitais.
+     */
     public void imprimirResumoSimulado(double percentagem) {
         System.out.println("\n--- Simulação da alteração dos sinais vitais (" + percentagem + "%) ---\n");
 
@@ -48,6 +68,16 @@ public class AlteradorSinaisVitais {
         }
     }
 
+    /**
+     * Imprime os valores simulados para um tipo específico de sinal vital,
+     * destacando os que ultrapassam os limites fisiológicos.
+     *
+     * @param tipo           nome do tipo de sinal vital (ex: "Temperatura").
+     * @param medidas        lista de medidas do paciente.
+     * @param percentagem    percentagem a aplicar aos valores originais.
+     * @param limiteMin      valor mínimo fisiológico aceitável.
+     * @param limiteMax      valor máximo fisiológico aceitável.
+     */
     private void imprimirSimulados(String tipo, List<Medida> medidas, double percentagem, double limiteMin, double limiteMax) {
         System.out.println("  " + tipo + ":");
 
