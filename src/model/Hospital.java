@@ -8,10 +8,9 @@ import java.util.ArrayList;
  * Classe que representa um hospital com listas de pacientes, técnicos de saúde
  * e medidas registadas. É responsável por armazenar e fornecer acesso aos
  * dados clínicos registados no sistema.
+ * Esta classe é serializável, permitindo que os dados sejam guardados.
  */
 public class Hospital implements Serializable {
-
-    private static final long serialVersionUID = 1L;
 
     private String nome;
     private List<Paciente> pacientes;

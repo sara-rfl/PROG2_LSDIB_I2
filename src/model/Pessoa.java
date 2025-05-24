@@ -14,10 +14,9 @@ import java.time.LocalDate;
  * no acesso a dados pessoais e ordenação por data de nascimento.
  * O identificador {@code id} é atribuído automaticamente com base num contador interno,
  * salvo se for fornecido diretamente pelo construtor.
+ * Esta classe é serializável, permitindo que os dados sejam guardados.
  */
 abstract class Pessoa implements PessoaInterface, OrdenavelPorData, Serializable {
-
-    private static final long serialVersionUID = 1L;
 
     /** Contador interno para gerar identificadores únicos. */
     private static int contador = 1000;

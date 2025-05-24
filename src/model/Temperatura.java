@@ -7,10 +7,9 @@ import java.time.LocalDateTime;
  * Representa uma medida de temperatura corporal de um paciente.
  * Estende a classe abstrata {@link Medida} e inclui limites para classificação
  * dos valores como "Normal", "Atenção" ou "Crítico".
+ * Esta classe é serializável, permitindo que os dados sejam guardados.
  */
 public class Temperatura extends Medida implements Serializable {
-
-    private static final long serialVersionUID = 1L;
 
     /**
      * Limite inferior da temperatura considerada normal (em ºC).

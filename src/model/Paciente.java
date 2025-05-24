@@ -11,10 +11,9 @@ import java.time.LocalDate;
  * por exemplo, pela classe {@code Hospital} e um sistema de classificação como {@code ClassificadorPaciente}.
  * Esta classe implementa {@code Comparable<Paciente>} para permitir ordenação por data de nascimento,
  * e {@code Classificavel} para permitir a obtenção de uma classificação (embora aqui esteja apenas como placeholder).
+ * Esta classe é serializável, permitindo que os dados sejam guardados.
  */
 public class Paciente extends Pessoa implements Comparable<Paciente>, Classificavel, Serializable {
-
-    private static final long serialVersionUID = 1L;
 
     /** Altura do paciente, em metros. */
     private double altura;

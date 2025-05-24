@@ -235,6 +235,15 @@ public class Submenus {
         }
     }
 
+    /**
+     * Apresenta o menu de análise de Serialização, permite:
+     * - Guardar os dados atuais do hospital num ficheiro binário
+     * - Carregar os dados guardados previamente a partir do ficheiro
+     * - Voltar ao menu principal
+     *
+     * @param scanner objeto {@code Scanner} utilizado para ler as opções do utilizador
+     * @param hospital instância atual do {@code Hospital} que será guardada ou atualizada com base no ficheiro
+     */
     public static void menuSerializador(Scanner scanner, Hospital hospital) {
         boolean continuar = true;
         while (continuar) {

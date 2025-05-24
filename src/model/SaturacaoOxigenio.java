@@ -12,11 +12,10 @@ import java.time.LocalDateTime;
  *   <li>{@code SAT_ATENCAO_MIN} — valor mínimo para considerar como situação de atenção (≥ 90%)</li>
  * </ul>
  * Valores abaixo de 90% são geralmente considerados críticos.
+ * Esta classe é serializável, permitindo que os dados sejam guardados.
  *
  */
 public class SaturacaoOxigenio extends Medida implements Serializable {
-
-    private static final long serialVersionUID = 1L;
 
     /** Valor mínimo (%) para considerar a saturação como normal. */
     public static final double SAT_NORMAL_MIN = 95.0;

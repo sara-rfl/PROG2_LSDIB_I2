@@ -11,10 +11,9 @@ import java.time.LocalDateTime;
  * e o técnico de saúde responsável pela medição.
  *
  * Esta classe serve como base para as subclasses específicas de sinais vitais.
+ * Esta classe é serializável, permitindo que os dados sejam guardados.
  */
 public abstract class Medida implements Serializable {
-
-    private static final long serialVersionUID = 1L;
 
     protected double valor;
     protected LocalDateTime dataHora;

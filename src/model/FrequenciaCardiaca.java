@@ -8,10 +8,9 @@ import java.time.LocalDateTime;
  * armazenando o valor, a data/hora do registo, e os envolvidos (paciente e técnico).
  * Estende a classe abstrata {@link Medida} e define os limites associados
  * à classificação da frequência cardíaca.
+ * Esta classe é serializável, permitindo que os dados sejam guardados.
  */
 public class FrequenciaCardiaca extends Medida implements Serializable {
-
-    private static final long serialVersionUID = 1L;
 
     /**
      * Limite inferior para frequência cardíaca considerada normal (em bpm).
