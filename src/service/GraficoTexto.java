@@ -60,8 +60,6 @@ public class GraficoTexto {
                 double media = estat.calcularMedia();
                 GraficoTexto.mostrarBarra(nomes[i], media, escalas[i]);
             }
-
-
         }
     }
 
@@ -165,7 +163,6 @@ public class GraficoTexto {
                 System.out.printf("%s: -%n", nomes[i]);
             }
         }
-
         System.out.println("---");
     }
 }

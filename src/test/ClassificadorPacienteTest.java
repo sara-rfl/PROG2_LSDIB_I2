@@ -1,7 +1,5 @@
 package test;
 
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import service.ClassificadorPaciente;
 import model.Medida;
@@ -23,11 +21,6 @@ import static org.junit.jupiter.api.Assertions.*;
  * de Saúde e medições de temperatura.
  */
 public class ClassificadorPacienteTest {
-
-    @BeforeAll
-    public static void setUp() {
-        System.out.println("Iniciando testes...");
-    }
 
     /**
      * Testa se o metodo {@code classificarSinaisVitais} devolve corretamente
@@ -73,14 +66,5 @@ public class ClassificadorPacienteTest {
         );
 
         assertEquals(0, resultado.size());
-    }
-
-    /**
-     * Finaliza os testes da classe ClassificadorPacienteTest.
-     * Pode ser usado para libertar recursos ou apresentar mensagens.
-     */
-    @AfterAll
-    public static void tearDown() {
-        System.out.println("Finalizando testes...");;
     }
 }

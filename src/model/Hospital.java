@@ -56,6 +56,10 @@ public class Hospital implements Serializable {
         medidas.add(medida);
     }
 
+    public String getNome() {
+        return nome;
+    }
+
     /**
      * Devolve todas as medidas registadas para um determinado paciente.
      *

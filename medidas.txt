@@ -1,16 +1,16 @@
 1100;Paulo Sousa;1980-05-12;1.75;70.0;300;Marta Costa;1975-01-01;Enfermeira;Frequência Cardíaca;80;2024-05-10T09:00
 1100;Paulo Sousa;1980-05-12;1.75;70.0;300;Marta Costa;1975-01-01;Enfermeira;Temperatura;36.8;2024-05-10T09:10
-1100;Paulo Sousa;1980-05-12;1.75;70.0;300;Marta Costa;1975-01-01;Enfermeira;Saturação de Oxigénio;96;2024-05-10T09:15
+1100;Paulo Sousa;1980-05-12;1.75;70.0;301;João Neves;1970-02-03;Médico;Saturação de Oxigénio;96;2024-05-10T09:15
 1100;Paulo Sousa;1980-05-12;1.75;70.0;300;Marta Costa;1975-01-01;Enfermeira;Frequência Cardíaca;82;2024-05-12T11:30
-1100;Paulo Sousa;1980-05-12;1.75;70.0;300;Marta Costa;1975-01-01;Enfermeira;Temperatura;37.0;2024-05-12T11:35
+1100;Paulo Sousa;1980-05-12;1.75;70.0;301;João Neves;1970-02-03;Médico;Temperatura;37.0;2024-05-12T11:35
 1100;Paulo Sousa;1980-05-12;1.75;70.0;300;Marta Costa;1975-01-01;Enfermeira;Saturação de Oxigénio;95;2024-05-12T11:40
 
-1101;Ana Freitas;1992-09-18;1.62;60.0;301;João Neves;1970-02-03;Médico;Frequência Cardíaca;92;2024-05-11T14:00
+1101;Ana Freitas;1992-09-18;1.62;60.0;302;Ana Luísa;2000-02-03;Médica;Frequência Cardíaca;92;2024-05-11T14:00
 1101;Ana Freitas;1992-09-18;1.62;60.0;301;João Neves;1970-02-03;Médico;Temperatura;37.3;2024-05-11T14:15
-1101;Ana Freitas;1992-09-18;1.62;60.0;301;João Neves;1970-02-03;Médico;Saturação de Oxigénio;94;2024-05-11T14:20
+1101;Ana Freitas;1992-09-18;1.62;60.0;302;Ana Luísa;2000-02-03;Médica;Saturação de Oxigénio;94;2024-05-11T14:20
 1101;Ana Freitas;1992-09-18;1.62;60.0;301;João Neves;1970-02-03;Médico;Frequência Cardíaca;89;2024-05-13T15:00
 
-1102;Carlos Mendes;1988-03-08;1.80;82.0;300;Marta Costa;1975-01-01;Enfermeira;Frequência Cardíaca;78;2024-05-12T08:30
+1102;Carlos Mendes;1988-03-08;1.80;82.0;303;Rui Barbosa;1976-01-01;Enfermeiro;Frequência Cardíaca;78;2024-05-12T08:30
 1102;Carlos Mendes;1988-03-08;1.80;82.0;300;Marta Costa;1975-01-01;Enfermeira;Temperatura;36.6;2024-05-12T08:40
-1102;Carlos Mendes;1988-03-08;1.80;82.0;300;Marta Costa;1975-01-01;Enfermeira;Saturação de Oxigénio;97;2024-05-12T08:45
+1102;Carlos Mendes;1988-03-08;1.80;82.0;303;Rui Barbosa;1976-01-01;Enfermeiro;Saturação de Oxigénio;97;2024-05-12T08:45
 1102;Carlos Mendes;1988-03-08;1.80;82.0;300;Marta Costa;1975-01-01;Enfermeira;Frequência Cardíaca;76;2024-05-13T09:00

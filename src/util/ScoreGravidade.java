@@ -1,9 +1,11 @@
-package model;
+package util;
+
+import model.*;
 
 import java.util.List;
 
-/**
- * Classe utilitária responsável pelo cálculo do score de gravidade de pacientes com base
+/**cálculo do score de grav
+ * Classe utilitária responsável pelo idade de pacientes com base
  * nas últimas medições de sinais vitais.
  * O score indica o grau de gravidade do estado do paciente.
  *

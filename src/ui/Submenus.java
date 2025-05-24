@@ -7,7 +7,7 @@ import manager.GestorPacientes;
 import manager.ProcessadorMedidas;
 import manager.FiltroSinaisVitais;
 import model.Medida;
-import model.ScoreGravidade;
+import util.ScoreGravidade;
 import service.Serializador;
 
 import java.time.LocalDate;

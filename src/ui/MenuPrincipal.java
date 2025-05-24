@@ -26,6 +26,30 @@ public class MenuPrincipal {
         this.scanner = new Scanner(System.in);
     }
 
+    /**
+     * Permite ao utilizador escolher entre criar dados automaticamente
+     * ou carregar de ficheiro. Caso contrário, inicia com base vazia.
+     */
+    private void inicializarDados() {
+        System.out.println("\nDeseja:");
+        System.out.println("1 - Criar dados automaticamente");
+        System.out.println("2 - Carregar dados a partir de ficheiro");
+        System.out.print("Escolha (1 ou 2): ");
+
+        int escolha = scanner.nextInt();
+        scanner.nextLine();
+
+        if (escolha == 1) {
+            DadosERegisto.exemplo(hospital);
+        } else if (escolha == 2) {
+            System.out.print("Nome do ficheiro (ex: medidas.txt): ");
+            String nomeFicheiro = scanner.nextLine();
+            LeitorFicheiros.importarMedidas(nomeFicheiro, hospital);
+        } else {
+            System.out.println("Opção inválida. A iniciar sem dados.");
+        }
+    }
+
         /**
          * Metodo principal que apresenta o menu inicial ao utilizador.
          * Permite registar pacientes, carregar dados ou aceder ao menu de análise.
@@ -56,30 +80,6 @@ public class MenuPrincipal {
                 } else {
                     System.out.println("Opção inválida.");
                 }
-            }
-        }
-
-        /**
-         * Permite ao utilizador escolher entre criar dados automaticamente
-         * ou carregar de ficheiro. Caso contrário, inicia com base vazia.
-         */
-        private void inicializarDados() {
-            System.out.println("\nDeseja:");
-            System.out.println("1 - Criar dados automaticamente");
-            System.out.println("2 - Carregar dados a partir de ficheiro");
-            System.out.print("Escolha (1 ou 2): ");
-
-            int escolha = scanner.nextInt();
-            scanner.nextLine(); // consumir newline
-
-            if (escolha == 1) {
-                DadosERegisto.exemplo(hospital);
-            } else if (escolha == 2) {
-                System.out.print("Nome do ficheiro (ex: medidas.txt): ");
-                String nomeFicheiro = scanner.nextLine();
-                LeitorFicheiros.importarMedidas(nomeFicheiro, hospital);
-            } else {
-                System.out.println("Opção inválida. A iniciar sem dados.");
             }
         }
 
