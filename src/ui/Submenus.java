@@ -169,19 +169,16 @@ public class Submenus {
             scanner.nextLine();
 
             if (escolha == 1) {
-                Paciente paciente = GestorPacientes.selecionarPaciente(scanner, hospital.getPacientes());
-                if (paciente != null) {
 
                     System.out.println("\nPaciente selecionado com sucesso!");
                     service.GraficoTexto.mostrarGraficoMediasPaciente(scanner, hospital);
-                }
+
             } else if (escolha == 2) {
-                Paciente paciente = GestorPacientes.selecionarPaciente(scanner, hospital.getPacientes());
-                if (paciente != null) {
+
                     System.out.println("\nPaciente selecionado com sucesso!");
 
                     service.GraficoTexto.mostrarGruposValoresReais(scanner, hospital);
-                }
+
             } else  if (escolha == 3) {
                 continuar = false;
             } else {
