@@ -22,7 +22,6 @@ public class Serializador {
     public static void guardarHospital(Hospital hospital, String caminho) {
         try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(caminho))) {
             oos.writeObject(hospital);
-            System.out.println("Dados guardados com sucesso!");
         } catch (IOException e) {
             System.out.println("Erro ao guardar dados: " + e.getMessage());
         }

@@ -11,8 +11,21 @@ import java.util.List;
 
 import static util.TipoUtil.normalizar;
 
+/**
+ * Classe responsável por comparar os sinais vitais de um paciente
+ * num determinado intervalo de tempo e apresentar a evolução da classificação.
+ */
 public class ComparadorSinaisVitais {
 
+    /**
+     * Compara os sinais vitais de um paciente entre duas datas e imprime
+     * a evolução das classificações para cada tipo de sinal vital.
+     *
+     * @param hospital hospital que contém os dados dos pacientes.
+     * @param paciente paciente selecionado.
+     * @param dataInicio data de início do intervalo de análise.
+     * @param dataFim data de fim do intervalo de análise.
+     */
     public static void comparar(Hospital hospital, Paciente paciente,
                                 LocalDate dataInicio, LocalDate dataFim) {
 
@@ -28,6 +41,15 @@ public class ComparadorSinaisVitais {
         }
     }
 
+    /**
+     * Obtém a lista de classificações de sinais vitais filtradas por tipo e período.
+     *
+     * @param tipo tipo de sinal vital a analisar.
+     * @param medidas lista de medidas do paciente.
+     * @param dataInicio data de início do intervalo.
+     * @param dataFim data de fim do intervalo.
+     * @return lista de classificações com a data correspondente.
+     */
     private static List<ClassificacaoComData> obterClassificacoes(String tipo, List<Medida> medidas,
                                                                   LocalDate dataInicio, LocalDate dataFim) {
         LocalDateTime inicio = dataInicio.atStartOfDay();
@@ -35,6 +57,14 @@ public class ComparadorSinaisVitais {
         return ClassificadorPaciente.classificarSinaisVitais(medidas, tipo, inicio, fim);
     }
 
+    /**
+     * Constrói a string que representa a evolução das classificações ao longo do tempo.
+     *
+     * @param classificacoes lista de classificações obtidas.
+     * @param dataInicio data de início do intervalo.
+     * @param dataFim data de fim do intervalo.
+     * @return string com a descrição da evolução entre as datas.
+     */
     private static String construirResultado(List<ClassificacaoComData> classificacoes,
                                              LocalDate dataInicio, LocalDate dataFim) {
         if (classificacoes.isEmpty()) {
@@ -53,10 +83,22 @@ public class ComparadorSinaisVitais {
                 + " --> " + getClassificacaoBase(ultima.getClassificacao()) + " (" + formatarData(ultima.getData()) + ")";
     }
 
+    /**
+     * Formata uma data no formato "dd/MM/aaaa".
+     *
+     * @param data data a formatar.
+     * @return string da data formatada.
+     */
     private static String formatarData(LocalDate data) {
         return String.format("%02d/%02d/%04d", data.getDayOfMonth(), data.getMonthValue(), data.getYear());
     }
 
+    /**
+     * Extrai a parte base da classificação (ex: "Normal" de "Normal - Temperatura").
+     *
+     * @param classificacao string da classificação completa.
+     * @return parte base da classificação (sem tipo).
+     */
     private static String getClassificacaoBase(String classificacao) {
         int separador = classificacao.indexOf(" - ");
         return separador != -1 ? classificacao.substring(0, separador) : classificacao;

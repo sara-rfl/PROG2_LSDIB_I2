@@ -11,8 +11,21 @@ import java.util.List;
 
 import static util.TipoUtil.normalizar;
 
+/**
+ * Classe responsável por classificar sinais vitais de pacientes com base
+ * em limites fisiológicos e calcular estatísticas relacionadas com essas classificações.
+ */
 public class ClassificadorPaciente {
 
+    /**
+     * Classifica os sinais vitais de um determinado tipo dentro de um intervalo de tempo.
+     *
+     * @param medidas lista de medidas de um paciente.
+     * @param tipo tipo de sinal vital (ex: "Temperatura", "Frequência Cardíaca").
+     * @param inicio data/hora de início do intervalo de análise.
+     * @param fim data/hora de fim do intervalo de análise.
+     * @return lista de classificações com as respetivas datas.
+     */
     public static List<ClassificacaoComData> classificarSinaisVitais(List<Medida> medidas,
                                                                      String tipo,
                                                                      LocalDateTime inicio,
@@ -38,6 +51,16 @@ public class ClassificadorPaciente {
         return resultado;
     }
 
+    /**
+     * Calcula a percentagem de pacientes que apresentam pelo menos
+     * um sinal vital classificado como "Crítico" durante um determinado período.
+     *
+     * @param hospital hospital que contém os pacientes e as respetivas medidas.
+     * @param pacientes lista de pacientes a avaliar.
+     * @param inicio data/hora de início do intervalo de análise.
+     * @param fim data/hora de fim do intervalo de análise.
+     * @return percentagem de pacientes com sinais vitais críticos.
+     */
     public static double calcularPercentagemCriticos(Hospital hospital, List<Paciente> pacientes,
                                                      LocalDateTime inicio, LocalDateTime fim) {
         if (pacientes.isEmpty()) return 0.0;

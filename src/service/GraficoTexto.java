@@ -10,12 +10,25 @@ import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 
+/**
+ * Classe responsável por gerar representações textuais (gráficos em texto)
+ * dos sinais vitais dos pacientes, incluindo médias, últimas medições
+ * e grupos de medições reais.
+ */
 public class GraficoTexto {
 
     private static final String[] TIPOS = {"Frequência Cardíaca", "Temperatura", "Saturação de Oxigénio"};
     private static final String[] NOMES = {"Frequência cardíaca (bpm)", "Temperatura corporal (ºC)", "Saturação de oxigénio (%)"};
     private static final double[] MAXIMOS = {220.0, 45.0, 100.0};
 
+    /**
+     * Apresenta uma barra em texto proporcional ao valor fornecido,
+     * com base no valor máximo possível.
+     *
+     * @param titulo título a apresentar antes da barra.
+     * @param valor valor atual do sinal vital.
+     * @param maximo valor máximo para o sinal vital.
+     */
     public static void mostrarBarra(String titulo, double valor, double maximo) {
         int comprimento = (int) ((valor / maximo) * 10); // Cada * = 10%
         StringBuilder barra = new StringBuilder();
@@ -23,6 +36,13 @@ public class GraficoTexto {
         System.out.printf("%s: %.1f  %s\n", titulo, valor, barra);
     }
 
+    /**
+     * Mostra um gráfico com as médias dos sinais vitais de um paciente
+     * dentro de um intervalo de tempo selecionado pelo utilizador.
+     *
+     * @param scanner objeto Scanner para entrada do utilizador.
+     * @param hospital hospital com os dados dos pacientes.
+     */
     public static void mostrarGraficoMediasPaciente(Scanner scanner, Hospital hospital) {
         Paciente paciente = GestorPacientes.selecionarPaciente(scanner, hospital.getPacientes());
         LocalDate[] datas = PeriodoAnalise.selecionarPeriodoDeAnalisePaciente(scanner, hospital, paciente);
@@ -43,6 +63,14 @@ public class GraficoTexto {
         }
     }
 
+    /**
+     * Mostra um resumo gráfico das últimas medições de sinais vitais
+     * para um determinado paciente.
+     *
+     * @param paciente paciente selecionado.
+     * @param hospital hospital com os dados das medições.
+     */
+
     public static void mostrarGraficoUltimasMedidas(Paciente paciente, Hospital hospital) {
         System.out.println("\nResumo gráfico dos sinais vitais registados:");
         List<Medida> todas = hospital.getMedidasPorPaciente(paciente);
@@ -62,7 +90,13 @@ public class GraficoTexto {
             }
         }
     }
-
+    /**
+     * Mostra grupos de valores reais de sinais vitais, organizados em blocos paralelos,
+     * permitindo a comparação temporal entre medições de diferentes tipos.
+     *
+     * @param scanner objeto Scanner para entrada do utilizador.
+     * @param hospital hospital com os dados dos pacientes.
+     */
     public static void mostrarGruposValoresReais(Scanner scanner, Hospital hospital) {
         Paciente paciente = GestorPacientes.selecionarPaciente(scanner, hospital.getPacientes());
         List<Medida> todas = hospital.getMedidasPorPaciente(paciente);
@@ -87,6 +121,12 @@ public class GraficoTexto {
             mostrarGrupo(grupo, i + 1);
         }
     }
+    /**
+     * Mostra as medições de um grupo, com as respetivas barras e intervalo de datas.
+     *
+     * @param grupo array de medidas, uma por tipo de sinal vital.
+     * @param numero número do grupo a apresentar.
+     */
 
     private static void mostrarGrupo(Medida[] grupo, int numero) {
         List<LocalDateTime> datas = new ArrayList<>();
@@ -116,6 +156,15 @@ public class GraficoTexto {
         System.out.println("---");
     }
 
+    /**
+     * Filtra uma lista de medições por tipo e intervalo temporal.
+     *
+     * @param medidas lista completa de medições.
+     * @param tipo tipo de sinal vital a filtrar.
+     * @param inicio início do intervalo.
+     * @param fim fim do intervalo.
+     * @return lista de medidas filtradas.
+     */
     private static List<Medida> filtrarPorTipoEPeriodo(List<Medida> medidas, String tipo, LocalDateTime inicio, LocalDateTime fim) {
         List<Medida> filtradas = new ArrayList<>();
         for (Medida m : medidas) {

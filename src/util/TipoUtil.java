@@ -1,7 +1,19 @@
 package util;
-
+/**
+ * Classe utilitária para normalização de strings que representam tipos de sinais vitais.
+ * Remove acentos e caracteres especiais para facilitar comparações insensíveis a grafia.
+ */
 public class TipoUtil {
 
+    /**
+     * Normaliza um tipo de sinal vital convertendo para minúsculas,
+     * removendo acentos e cedilhas.
+     *
+     * Exemplo: "Frequência Cardíaca" → "frequencia cardiaca"
+     *
+     * @param tipo string com o tipo original.
+     * @return versão normalizada da string.
+     */
     public static String normalizar(String tipo) {
         return tipo.trim().toLowerCase()
                 .replace("á", "a")
