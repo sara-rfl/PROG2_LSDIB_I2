@@ -15,6 +15,26 @@ import java.time.LocalDate;
  */
 public class Paciente extends Pessoa implements Comparable<Paciente>, Classificavel, Serializable {
 
+    /**
+     * Altura mínima para um paciente, em metros.
+     */
+    public static final double ALTURA_MIN = 0.3;
+
+    /**
+     * Altura máxima para um paciente, em metros.
+     */
+    public static final double ALTURA_MAX = 2.5;
+
+    /**
+     * Peso mínimo para um paciente, em quilogramas.
+     */
+    public static final double PESO_MIN = 1.0;
+
+    /**
+     * Peso máximo para um paciente, em quilogramas.
+     */
+    public static final double PESO_MAX = 300.0;
+
     /** Altura do paciente, em metros. */
     private double altura;
 

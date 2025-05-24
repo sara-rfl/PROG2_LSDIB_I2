@@ -144,7 +144,6 @@ public class DadosERegisto {
 
                 System.out.println("Introduza os sinais vitais para este paciente:");
 
-
                 if (tecnico != null) {
                     inserirSinaisVitais(scanner, hospital, paciente, tecnico);
                     System.out.println("Paciente " + paciente.getId() + " registado com sucesso pelo técnico de saúde " + tecnico.getNome() + "!");
@@ -153,31 +152,49 @@ public class DadosERegisto {
                     System.out.println("Técnico inválido. Registo cancelado.");
                 }
                 GraficoTexto.mostrarGraficoUltimasMedidas(paciente, hospital);
-
             } else {
                 continuar = false;
             }
         }
     }
 
-
     /**
      * Solicita os dados pessoais do paciente ao utilizador e cria um novo objeto {@code Paciente}.
      *
-     * Esta função recolhe o nome, data de nascimento, altura e peso do paciente.
-     * A data de nascimento deve ser introduzida no formato {@code dd/mm/aaaa} e será considerada válida
-     * apenas se não for posterior à data actual. O processo de introdução da data repete-se até
-     * ser fornecida uma data válida.
-     *
      * @param scanner Objeto {@code Scanner} utilizado para recolher a entrada do utilizador.
-     * @return Um novo objeto {@code Paciente} contendo os dados pessoais fornecidos.
+     * @return Um novo objeto {@code Paciente} com dados validados.
      */
     public static Paciente registarPaciente(Scanner scanner) {
         scanner.nextLine();
         System.out.println("Introduza os dados do paciente: ");
-        System.out.print("Nome: ");
-        String nome = scanner.nextLine();
 
+        String nome = pedirNome(scanner);
+        LocalDate nascimento = pedirDataDeNascimento(scanner);
+        double altura = pedirAltura(scanner);
+        double peso = pedirPeso(scanner);
+
+        return new Paciente(nome, nascimento, altura, peso);
+    }
+
+    /**
+     * Solicita ao utilizador o nome do paciente.
+     *
+     * @param scanner Scanner utilizado para ler a entrada do utilizador.
+     * @return Nome introduzido pelo utilizador.
+     */
+    private static String pedirNome(Scanner scanner) {
+        System.out.print("Nome: ");
+        return scanner.nextLine();
+    }
+
+    /**
+     * Solicita e valida a data de nascimento do paciente no formato dd/mm/aaaa.
+     * A data deve ser válida, não pode ser futura e o ano deve ser posterior a 1900.
+     *
+     * @param scanner Scanner utilizado para ler a entrada do utilizador.
+     * @return Objeto {@code LocalDate} correspondente à data de nascimento válida.
+     */
+    private static LocalDate pedirDataDeNascimento(Scanner scanner) {
         LocalDate dataNascimento = null;
         boolean dataValida = false;
 
@@ -198,16 +215,48 @@ public class DadosERegisto {
                 }
             }
             if (!dataValida) {
-                System.out.println("Data inválida. A Data de Nascimento não pode ser uma data futura. Tente novamente.");
+                System.out.println("Data inválida. Tente novamente.");
             }
         }
+        return dataNascimento;
+    }
 
-        System.out.print("Altura (em metros): ");
-        double altura = scanner.nextDouble();
-        System.out.print("Peso (kg): ");
-        double peso = scanner.nextDouble();
+    /**
+     * Solicita ao utilizador a altura do paciente e valida se está dentro dos limites definidos na classe {@code Paciente}.
+     *
+     * @param scanner Scanner utilizado para ler a entrada do utilizador.
+     * @return Altura válida (em metros).
+     */
+    private static double pedirAltura(Scanner scanner) {
+        double altura = -1;
+        while (!(altura >= Paciente.ALTURA_MIN && altura <= Paciente.ALTURA_MAX)) {
+            System.out.print("Altura (em metros): ");
+            altura = scanner.nextDouble();
+            if (!(altura >= Paciente.ALTURA_MIN && altura <= Paciente.ALTURA_MAX)) {
+                System.out.println("Altura inválida. Deve estar entre " +
+                        Paciente.ALTURA_MIN + " e " + Paciente.ALTURA_MAX + " metros.");
+            }
+        }
+        return altura;
+    }
 
-        return new Paciente(nome, dataNascimento, altura, peso);
+    /**
+     * Solicita ao utilizador o peso do paciente e valida se está dentro dos limites definidos na classe {@code Paciente}.
+     *
+     * @param scanner Scanner utilizado para ler a entrada do utilizador.
+     * @return Peso válido (em quilogramas).
+     */
+    private static double pedirPeso(Scanner scanner) {
+        double peso = -1;
+        while (!(peso >= Paciente.PESO_MIN && peso <= Paciente.PESO_MAX)) {
+            System.out.print("Peso (kg): ");
+            peso = scanner.nextDouble();
+            if (!(peso >= Paciente.PESO_MIN && peso <= Paciente.PESO_MAX)) {
+                System.out.println("Peso inválido. Deve estar entre " +
+                        Paciente.PESO_MIN + "kg e " + Paciente.PESO_MAX + "kg.");
+            }
+        }
+        return peso;
     }
 
 
