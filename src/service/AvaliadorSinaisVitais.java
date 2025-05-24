@@ -1,21 +1,15 @@
 package service;
 
 import static model.FrequenciaCardiaca.*;
-
 import static model.SaturacaoOxigenio.*;
-
-import static model.SaturacaoOxigenio.*;
-
 import static model.Temperatura.*;
+
+import static util.TipoUtil.normalizar;
 
 public class AvaliadorSinaisVitais {
 
     public static String classificarValor(String tipo, double valor) {
-        String tipoNormalizado = tipo
-                .toLowerCase()
-                .replace("é", "e")
-                .replace("ã", "a")
-                .replace("ç", "c");
+        String tipoNormalizado = normalizar(tipo);
 
         if (tipoNormalizado.contains("frequencia")) {
             return classificarFrequenciaCardiaca(valor);
@@ -58,4 +52,3 @@ public class AvaliadorSinaisVitais {
         }
     }
 }
-

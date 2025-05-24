@@ -6,26 +6,23 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import static util.TipoUtil.normalizar;
+
 public class FiltroSinaisVitais {
 
     public static List<Medida> filtrarPorTipoEPeriodo(List<Medida> medidas, String tipo,
                                                       LocalDateTime inicio, LocalDateTime fim) {
-
-        List<Medida> filtradas = new ArrayList<>();
+        List<Medida> resultado = new ArrayList<>();
 
         for (Medida m : medidas) {
-
-            String tipoMedida = m.getTipo();
-            LocalDateTime dataHora = m.getDataHora();
-
-            if (tipoMedida.trim().equalsIgnoreCase(tipo.trim()) &&
-                    (dataHora.isEqual(inicio) || dataHora.isAfter(inicio)) &&
-                    (dataHora.isEqual(fim) || dataHora.isBefore(fim))) {
-
-                filtradas.add(m);
+            String tipoMedida = normalizar(m.getTipo());
+            if (tipoMedida.equals(normalizar(tipo)) &&
+                    !m.getDataHora().isBefore(inicio) &&
+                    !m.getDataHora().isAfter(fim)) {
+                resultado.add(m);
             }
         }
 
-        return filtradas;
+        return resultado;
     }
 }

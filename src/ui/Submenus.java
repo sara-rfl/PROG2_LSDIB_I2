@@ -170,12 +170,9 @@ public class Submenus {
 
             if (escolha == 1) {
 
-                    System.out.println("\nPaciente selecionado com sucesso!");
                     service.GraficoTexto.mostrarGraficoMediasPaciente(scanner, hospital);
 
             } else if (escolha == 2) {
-
-                    System.out.println("\nPaciente selecionado com sucesso!");
 
                     service.GraficoTexto.mostrarGruposValoresReais(scanner, hospital);
 
