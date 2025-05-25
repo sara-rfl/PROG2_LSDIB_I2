@@ -38,14 +38,17 @@ public class MenuPrincipal {
 
         int escolha = scanner.nextInt();
         scanner.nextLine();
-
         if (escolha == 1) {
             DadosERegisto.exemplo(hospital);
         } else if (escolha == 2) {
             System.out.print("Nome do ficheiro (ex: medidas.txt): ");
             String nomeFicheiro = scanner.nextLine();
-            LeitorFicheiros.importarMedidas(nomeFicheiro, hospital);
-        } else {
+            boolean sucesso = LeitorFicheiros.importarMedidas(nomeFicheiro, hospital);
+            if (!sucesso) {
+                System.out.println("Não foi possível carregar os dados. A iniciar novamente...");
+                inicializarDados();
+            }
+        }else {
             System.out.println("Opção inválida. A iniciar sem dados.");
         }
     }

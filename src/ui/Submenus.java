@@ -8,7 +8,7 @@ import manager.ProcessadorMedidas;
 import manager.FiltroSinaisVitais;
 import model.Medida;
 import util.ScoreGravidade;
-import service.Serializador;
+import io.Serializador;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -132,22 +132,22 @@ public class Submenus {
             System.out.print("Escolha uma opção: ");
             int escolha = scanner.nextInt();
             scanner.nextLine();
+
             if (escolha == 1) {
-                Paciente paciente = GestorPacientes.selecionarPaciente(scanner, hospital.getPacientes());
+                Paciente paciente = GestorPacientes.selecionarPaciente(scanner, hospital); // corrigido aqui
                 if (paciente != null) {
                     LocalDate[] periodo = PeriodoAnalise.selecionarPeriodoDeAnalisePaciente(scanner, hospital, paciente);
-
                     System.out.println("\nPaciente selecionado com sucesso!");
                     service.ComparadorSinaisVitais.comparar(hospital, paciente, periodo[0], periodo[1]);
                 }
-        } else if (escolha == 2) {
+            } else if (escolha == 2) {
                 continuar = false;
-
             } else {
                 System.out.println("Opção inválida. Tente novamente.");
             }
         }
     }
+
 
     /**
      * Apresenta um menu com opções para gerar gráficos de barras:
@@ -212,7 +212,7 @@ public class Submenus {
                     System.out.println("Nenhum paciente encontrado.");
                 }
             } else if (opcao == 2) {
-                Paciente paciente = GestorPacientes.selecionarPaciente(scanner, hospital.getPacientes());
+                Paciente paciente = GestorPacientes.selecionarPaciente(scanner, hospital);
                 if (paciente != null) {
                     System.out.println("\nPaciente selecionado: " + paciente.getNome());
                     double score = ScoreGravidade.scorePaciente(paciente, hospital);

@@ -9,8 +9,6 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import static util.TipoUtil.normalizar;
-
 /**
  * Classe responsável por comparar os sinais vitais de um paciente
  * num determinado intervalo de tempo e apresentar a evolução da classificação.

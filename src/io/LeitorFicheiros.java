@@ -6,7 +6,6 @@ import model.*;
 import java.io.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-
 /**
  * Classe responsável por importar medidas a partir de um ficheiro de texto.
  * Caso pacientes ou técnicos não existam no hospital, são automaticamente criados.
@@ -21,16 +20,17 @@ public class LeitorFicheiros {
      * @param nomeFicheiro nome do ficheiro com as medidas a importar
      * @param hospital instância do hospital onde as medidas serão armazenadas
      */
-    public static void importarMedidas(String nomeFicheiro, Hospital hospital) {
+    public static boolean importarMedidas(String nomeFicheiro, Hospital hospital) {
         try (BufferedReader reader = new BufferedReader(new FileReader(nomeFicheiro))) {
             String linha;
             while ((linha = reader.readLine()) != null) {
                 if (!linha.trim().isEmpty()) {
                     processarLinhaMedida(linha, hospital);
                 }
-            }
+            }return true;
         } catch (IOException e) {
             System.out.println("Erro ao abrir o ficheiro: " + e.getMessage());
+            return false;
         }
     }
 
@@ -47,7 +47,6 @@ public class LeitorFicheiros {
         if (partes.length != 12) {
             throw new LinhaMalFormatadaException(linha);
         }
-
         try {
             Paciente paciente = obterOuCriarPaciente(partes, hospital);
             TecnicoSaude tecnico = obterOuCriarTecnico(partes, hospital);

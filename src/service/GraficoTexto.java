@@ -44,10 +44,12 @@ public class GraficoTexto {
      * @param hospital hospital com os dados dos pacientes.
      */
     public static void mostrarGraficoMediasPaciente(Scanner scanner, Hospital hospital) {
-        Paciente paciente = GestorPacientes.selecionarPaciente(scanner, hospital.getPacientes());
+        Paciente paciente = GestorPacientes.selecionarPaciente(scanner, hospital);
         LocalDate[] datas = PeriodoAnalise.selecionarPeriodoDeAnalisePaciente(scanner, hospital, paciente);
         LocalDateTime inicio = datas[0].atStartOfDay();
-        LocalDateTime fim = datas[1].isEqual(LocalDate.now()) ? LocalDateTime.of(datas[1], LocalTime.now()) : datas[1].atTime(23, 59);
+        LocalDateTime fim = datas[1].isEqual(LocalDate.now())
+                ? LocalDateTime.of(datas[1], LocalTime.now())
+                : datas[1].atTime(23, 59);
 
         List<Medida> todas = hospital.getMedidasPorPaciente(paciente);
 
@@ -98,7 +100,7 @@ public class GraficoTexto {
      * @param hospital hospital com os dados dos pacientes.
      */
     public static void mostrarGruposValoresReais(Scanner scanner, Hospital hospital) {
-        Paciente paciente = GestorPacientes.selecionarPaciente(scanner, hospital.getPacientes());
+        Paciente paciente = GestorPacientes.selecionarPaciente(scanner, hospital);
         List<Medida> todas = hospital.getMedidasPorPaciente(paciente);
 
         List<Medida>[] separados = new List[]{new ArrayList<>(), new ArrayList<>(), new ArrayList<>()};
@@ -121,6 +123,7 @@ public class GraficoTexto {
             mostrarGrupo(grupo, i + 1);
         }
     }
+
     /**
      * Mostra as medições de um grupo, com as respetivas barras e intervalo de datas.
      *

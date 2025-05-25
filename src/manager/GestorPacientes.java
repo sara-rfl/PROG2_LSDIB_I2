@@ -12,16 +12,17 @@ import java.util.Scanner;
 
 public class GestorPacientes {
 
-    public static Paciente selecionarPaciente(Scanner scanner, List<Paciente> pacientes) {
+    /**
+     * Permite ao utilizador selecionar um paciente com base no seu ID.
+     *
+     * @param scanner objeto para ler entradas do utilizador
+     * @param hospital instância do Hospital que contém os pacientes disponíveis
+     * @return paciente selecionado, ou null se não for encontrado
+     */
+    public static Paciente selecionarPaciente(Scanner scanner, Hospital hospital) {
+        List<Paciente> pacientes = hospital.getPacientes();
         mostrarLista(pacientes);
 
-        /**
-         * Permite ao utilizador selecionar um paciente com base no seu ID.
-         *
-         * @param scanner Scanner para input
-         * @param pacientes Lista de pacientes disponíveis
-         * @return entidades.Paciente selecionado, ou null se o ID não for encontrado
-         */
         System.out.print("Introduza o ID do paciente: ");
         int idEscolhido = scanner.nextInt();
         scanner.nextLine();
@@ -31,41 +32,39 @@ public class GestorPacientes {
                 return p;
             }
         }
-
         System.out.println("Paciente com ID " + idEscolhido + " não encontrado.");
         return null;
     }
 
     /**
-     * Permite ao utilizador selecionar um grupo de pacientes a partir de uma lista de pacientes com base nos seus IDs.
+     * Permite ao utilizador selecionar um grupo de pacientes a partir dos registados no hospital,
+     * introduzindo os seus IDs separados por espaço. Apenas os pacientes com IDs correspondentes
+     * serão adicionados à lista de selecionados.
      *
      * @param scanner objeto para ler entradas do utilizador
-     * @param pacientes lista de pacientes disponíveis para seleção
-     * @return Lista de pacientes selecionados com base nos IDs fornecidos pelo usuário
+     * @param hospital instância do Hospital que contém os pacientes disponíveis
+     * @return lista de pacientes selecionados com base nos IDs fornecidos pelo utilizador
      */
-    public static List<Paciente> selecionarGrupoPacientes(Scanner scanner, List<Paciente> pacientes) {
+    public static List<Paciente> selecionarGrupoPacientes(Scanner scanner, Hospital hospital) {
+        List<Paciente> pacientes = hospital.getPacientes();
+
         System.out.println("Selecione um grupo de pacientes (IDs separados por espaço):");
         mostrarLista(pacientes);
         System.out.print("Introduza os IDs: ");
         String[] ids = scanner.nextLine().split(" ");
+
         List<Paciente> selecionados = new ArrayList<>();
         for (String idStr : ids) {
-            try {
-                int id = Integer.parseInt(idStr);
-                for (Paciente paciente : pacientes) {
-                    if (paciente.getId() == id) {
-                        selecionados.add(paciente);
-                    }
+            int id = Integer.parseInt(idStr); // Assume-se que o input é válido
+            for (Paciente paciente : pacientes) {
+                if (paciente.getId() == id) {
+                    selecionados.add(paciente);
                 }
-            } catch (NumberFormatException e) {
-                System.out.println("ID inválido: " + idStr);
             }
-        }
-        if (selecionados.isEmpty()) {
-            System.out.println("Nenhum paciente encontrado.");
         }
         return selecionados;
     }
+
     /**
      * Exibe uma lista de todos os pacientes com os seus respetivos IDs e nomes.
      *
