@@ -6,6 +6,8 @@ import model.*;
 import java.io.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import util.TipoUtil;
+
 /**
  * Classe responsável por importar medidas a partir de um ficheiro de texto.
  * Caso pacientes ou técnicos não existam no hospital, são automaticamente criados.
@@ -98,7 +100,7 @@ public class LeitorFicheiros {
      * @throws TipoMedidaDesconhecidoException se o tipo for inválido
      */
     private static Medida criarMedida(String[] partes, Paciente paciente, TecnicoSaude tecnico) {
-        String tipo = normalizarTipo(partes[9].trim());
+        String tipo = TipoUtil.normalizar(partes[9].trim());
         double valor = Double.parseDouble(partes[10]);
         LocalDateTime dataHora = LocalDateTime.parse(partes[11]);
 
@@ -111,27 +113,5 @@ public class LeitorFicheiros {
         } else {
             throw new TipoMedidaDesconhecidoException(tipo);
         }
-    }
-
-    /**
-     * Remove acentos e normaliza o tipo de medida para facilitar a correspondência.
-     *
-     * @param tipo nome do tipo vindo do ficheiro (ex: "Frequência")
-     * @return tipo sem acentos, em minúsculas
-     */
-    private static String normalizarTipo(String tipo) {
-        return tipo.toLowerCase()
-                .replace("ã", "a")
-                .replace("ç", "c")
-                .replace("é", "e")
-                .replace("ê", "e")
-                .replace("á", "a")
-                .replace("à", "a")
-                .replace("ó", "o")
-                .replace("õ", "o")
-                .replace("í", "i")
-                .replace("ú", "u")
-                .replace("â", "a")
-                .replace("ô", "o");
     }
 }
